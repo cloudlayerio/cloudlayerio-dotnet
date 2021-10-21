@@ -2,7 +2,7 @@ using cloudlayerio_dotnet.interfaces;
 
 namespace cloudlayerio_dotnet
 {
-    /// <inheritdoc cref="IPuppeteerOptions"/>
+    /// <inheritdoc cref="IPuppeteerOptions" />
     public class PuppeteerOptions : IPuppeteerOptions
     {
         public WaitUntilOptions? WaitUntil { get; set; }

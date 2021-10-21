@@ -1,5 +1,6 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using cloudlayerio_dotnet;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 
 namespace cloudlayerio_dotnet_test
 {
@@ -32,6 +33,14 @@ namespace cloudlayerio_dotnet_test
         {
             var test = new LayoutDimension(UnitTypes.Centimeters, 0.24f).ToString();
             Assert.AreEqual(test, "0.24cm");
+        }
+
+        [TestMethod]
+        public void Serialize_Test()
+        {
+            var test = new LayoutDimension(UnitTypes.Centimeters, 0.24f).ToString();
+            var val = JsonConvert.SerializeObject(test);
+            Assert.AreEqual("\"0.24cm\"", val);
         }
     }
 }

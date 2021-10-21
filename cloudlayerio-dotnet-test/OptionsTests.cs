@@ -54,7 +54,7 @@ namespace cloudlayerio_dotnet_test
             var json = JsonConvert.SerializeObject(options);
             Assert.AreEqual("{\"inline\":false}", json);
         }
-        
+
         [TestMethod]
         public void Serialize_All()
         {
