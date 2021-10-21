@@ -58,9 +58,9 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_All()
         {
-            var options = new WaitForSelectorOptions { Visible = true, Hidden = true, Timeout = 2000};
+            var options2 = new WaitForSelectorOptions { Visible = true, Hidden = true, Timeout = 2000};
             var json = JsonConvert.SerializeObject(options);
             Assert.AreEqual("{\"visible\":true,\"hidden\":true,\"timeout\":2000}", json);
-        }
+        } 
     }
 }
