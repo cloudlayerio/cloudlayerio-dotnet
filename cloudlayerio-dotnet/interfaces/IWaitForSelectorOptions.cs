@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace cloudlayerio_dotnet.Interfaces
+﻿namespace cloudlayerio_dotnet.interfaces
 {
     /// <summary>
     /// Wait options for puppeteer.
     /// </summary>
-    interface IWaitForSelectorOptions
+    public interface IWaitForSelectorOptions
     {
         /// <summary>
         /// Wait until the selector is visible. If you set hidden to true, it will negate this option.

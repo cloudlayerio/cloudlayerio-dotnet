@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace cloudlayerio_dotnet.Interfaces
+﻿namespace cloudlayerio_dotnet.interfaces
 {
     /// <summary>
     /// Wait for selector options for puppeteer. This lets you wait for specific criteria to be met before 
     /// conversion to help ensure the page is done rendering.
     /// </summary>
-    interface IWaitForSelector
+    public interface IWaitForSelector
     {
         /// <summary>
         /// A selector of an element on the page to wait for until starting conversion.
@@ -18,6 +12,6 @@ namespace cloudlayerio_dotnet.Interfaces
         public string Selector { get; set; }
 
         /// <inheritdoc cref="IWaitForSelectorOptions" />
-        public IWaitForSelectorOptions? Options { get; set; }
+        public IWaitForSelectorOptions Options { get; set; }
     }
 }

@@ -1,7 +1,5 @@
-using cloudlayerio_dotnet.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using static cloudlayerio_dotnet.Interfaces.LayoutDimension;
+using cloudlayerio_dotnet;
 
 namespace cloudlayerio_dotnet_test
 {

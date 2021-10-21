@@ -1,4 +1,4 @@
-﻿namespace cloudlayerio_dotnet.Interfaces
+﻿namespace cloudlayerio_dotnet.interfaces
 {
     /// <summary>
     /// Options that are specific to Puppeteet endpoints.
@@ -9,13 +9,13 @@
         WaitUntilOptions? WaitUntil { get; set; }
 
         /// <inheritdoc cref="IWaitForSelector" />
-        IWaitForSelector? WaitForSelector { get; set; }
+        IWaitForSelector WaitForSelector { get; set; }
 
         /// <summary>
         /// Give any CSS @page size declared in the page priority over what is declared 
         /// in width and height or format options.
         /// </summary>
-        public bool? PreferCSSPageSize { get; set; }
+        public bool? PreferCssPageSize { get; set; }
 
         /// <summary>
         /// Scale of the webpage rendering. Defaults to 1. Scale amount must be between 0.1 and 2.
@@ -25,12 +25,12 @@
         /// <summary>
         /// Paper height.
         /// </summary>
-        public ILayoutDimension? Height { get; set; }
+        public ILayoutDimension Height { get; set; }
 
         /// <summary>
         /// Paper width.
         /// </summary>
-        public ILayoutDimension? Width { get; set; }
+        public ILayoutDimension Width { get; set; }
 
         /// <summary>
         /// Paper orientation, false sets it to portrait and true to landscape.

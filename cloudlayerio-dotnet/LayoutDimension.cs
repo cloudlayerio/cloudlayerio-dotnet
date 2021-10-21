@@ -1,34 +1,11 @@
 ﻿using System;
+using cloudlayerio_dotnet.interfaces;
 
-namespace cloudlayerio_dotnet.Interfaces
+namespace cloudlayerio_dotnet
 {
-
     /// <inheritdoc cref="ILayoutDimension" />
     public class LayoutDimension : ILayoutDimension
     {
-        /// <summary>
-        /// Layout dimension type based on units (Inches, Pixels, Centimeters, or Millimeters)
-        /// </summary>
-        public enum UnitTypes
-        {
-            /// <summary>
-            /// Inches
-            /// </summary>
-            Inches,
-            /// <summary>
-            /// Pixels
-            /// </summary>
-            Pixels,
-            /// <summary>
-            /// Centimeters
-            /// </summary>
-            Centimeters,
-            /// <summary>
-            /// Millimeters
-            /// </summary>
-            Millimeters
-        }
-
         /// <summary>
         /// Creates a layout dimension based on a value and unit type.
         /// </summary>
@@ -40,7 +17,7 @@ namespace cloudlayerio_dotnet.Interfaces
             Value = val;
         }
 
-        /// <inheritdoc cref="UnitTypes" />
+        /// <inheritdoc cref="cloudlayerio_dotnet.UnitTypes" />
         public UnitTypes UnitType { get; }
 
         /// <summary>
