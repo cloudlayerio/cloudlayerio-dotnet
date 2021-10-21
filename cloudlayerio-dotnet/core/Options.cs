@@ -1,7 +1,7 @@
 ﻿using cloudlayerio_dotnet.interfaces;
 using Newtonsoft.Json;
 
-namespace cloudlayerio_dotnet
+namespace cloudlayerio_dotnet.core
 {
     /// <inheritdoc />
     public class Options : IOptions

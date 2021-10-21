@@ -1,7 +1,9 @@
-﻿namespace cloudlayerio_dotnet.interfaces
+﻿using cloudlayerio_dotnet.core;
+
+namespace cloudlayerio_dotnet.interfaces
 {
     /// <summary>
-    ///     Options that are specific to Puppeteet endpoints.
+    ///     Options that are specific to Puppeteer endpoints.
     /// </summary>
     internal interface IPuppeteerOptions
     {
@@ -20,7 +22,7 @@
         /// <summary>
         ///     Scale of the webpage rendering. Defaults to 1. Scale amount must be between 0.1 and 2.
         /// </summary>
-        public int? Scale { get; set; }
+        public float? Scale { get; set; }
 
         /// <summary>
         ///     Paper height.
@@ -41,7 +43,7 @@
         ///     Paper ranges to print, e.g., '1-5, 8, 11-13'. Defaults to the empty string,
         ///     which means print all pages.
         /// </summary>
-        public string PageRanges { get; set; }
+        public IPageRanges PageRanges { get; set; }
 
         /// <summary>
         ///     Will attempt to auto scroll the page down to the very end. Useful for forcing

@@ -1,7 +1,6 @@
-﻿using System;
-using cloudlayerio_dotnet.interfaces;
+﻿using cloudlayerio_dotnet.interfaces;
 
-namespace cloudlayerio_dotnet
+namespace cloudlayerio_dotnet.core
 {
     /// <inheritdoc cref="ILayoutDimension" />
     public class LayoutDimension : ILayoutDimension
@@ -17,8 +16,8 @@ namespace cloudlayerio_dotnet
             Value = val;
         }
 
-        /// <inheritdoc cref="cloudlayerio_dotnet.UnitTypes" />
-        public UnitTypes UnitType { get; }
+        /// <inheritdoc cref="UnitTypes" />
+        public UnitTypes? UnitType { get; }
 
         /// <summary>
         ///     Numeric value of the dimension.
@@ -43,7 +42,7 @@ namespace cloudlayerio_dotnet
                 UnitTypes.Pixels => "px",
                 UnitTypes.Centimeters => "cm",
                 UnitTypes.Millimeters => "mm",
-                _ => throw new NotSupportedException()
+                _ => ""
             };
         }
     }

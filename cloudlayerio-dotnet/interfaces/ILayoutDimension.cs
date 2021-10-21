@@ -1,11 +1,13 @@
-﻿namespace cloudlayerio_dotnet.interfaces
+﻿using cloudlayerio_dotnet.core;
+
+namespace cloudlayerio_dotnet.interfaces
 {
     /// <summary>
-    ///     Dimensions based on units of measurements such as inches, pixels, centimeters, and millimeters
+    ///     Dimensions based on units of measurements such as inches (default), pixels, centimeters, and millimeters
     /// </summary>
     public interface ILayoutDimension
     {
-        UnitTypes UnitType { get; }
+        UnitTypes? UnitType { get; }
 
         float Value { get; }
 
