@@ -8,7 +8,7 @@
         /// <summary>
         /// Amount of time (in seconds) allowed to run, if exceeded your job will be terminated.
         /// </summary>
-        int Timeout { get; set; }
+        int? Timeout { get; set; }
 
         /// <summary>
         /// The amount of time (in milliseconds) to wait for the page to complete rendering
@@ -28,6 +28,6 @@
         /// the Content-Disposition to "attachment". See <see cref="Filename"/> property if you want to
         /// set the filename value for the attachment.
         /// </summary>
-        bool Inline { get; set; }
+        bool? Inline { get; set; }
     }
 }

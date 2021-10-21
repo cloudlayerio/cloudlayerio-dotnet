@@ -3,11 +3,11 @@
 namespace cloudlayerio_dotnet
 {
     /// <inheritdoc />
-    class Options : IOptions
+    public class Options : IOptions
     {
         /// <inheritdoc />
-        [JsonProperty(PropertyName = "timeout")]
-        public int Timeout { get; set; }
+        [JsonProperty(PropertyName = "timeout", NullValueHandling = NullValueHandling.Ignore)]
+        public int? Timeout { get; set; }
 
         /// <inheritdoc />
         [JsonProperty(PropertyName = "delay", NullValueHandling = NullValueHandling.Ignore)]
@@ -19,6 +19,6 @@ namespace cloudlayerio_dotnet
 
         /// <inheritdoc />
         [JsonProperty(PropertyName = "inline", NullValueHandling = NullValueHandling.Ignore)]
-        public bool Inline { get; set; }
+        public bool? Inline { get; set; }
     }
 }

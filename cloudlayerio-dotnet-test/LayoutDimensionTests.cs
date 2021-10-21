@@ -6,33 +6,33 @@ using static cloudlayerio_dotnet.Interfaces.LayoutDimension;
 namespace cloudlayerio_dotnet_test
 {
     [TestClass]
-    public class UnitTest1
+    public class LayoutDimensionTests
     {
         [TestMethod]
-        public void TestLayoutDimension_Pixels()
+        public void LayoutDimension_Pixels()
         {
-            string test = new LayoutDimension(UnitTypes.Pixels, 800).ToString();
+            var test = new LayoutDimension(UnitTypes.Pixels, 800).ToString();
             Assert.AreEqual(test, "800px");
         }
 
         [TestMethod]
-        public void TestLayoutDimension_Millimeters()
+        public void LayoutDimension_Millimeters()
         {
-            string test = new LayoutDimension(UnitTypes.Millimeters, 25).ToString();
+            var test = new LayoutDimension(UnitTypes.Millimeters, 25).ToString();
             Assert.AreEqual(test, "25mm");
         }
 
         [TestMethod]
-        public void TestLayoutDimension_Inches()
+        public void LayoutDimension_Inches()
         {
-            string test = new LayoutDimension(UnitTypes.Inches, 1.2f).ToString();
+            var test = new LayoutDimension(UnitTypes.Inches, 1.2f).ToString();
             Assert.AreEqual(test, "1.2in");
         }
 
         [TestMethod]
-        public void TestLayoutDimension_Centimeters()
+        public void LayoutDimension_Centimeters()
         {
-            string test = new LayoutDimension(UnitTypes.Centimeters, 0.24f).ToString();
+            var test = new LayoutDimension(UnitTypes.Centimeters, 0.24f).ToString();
             Assert.AreEqual(test, "0.24cm");
         }
     }

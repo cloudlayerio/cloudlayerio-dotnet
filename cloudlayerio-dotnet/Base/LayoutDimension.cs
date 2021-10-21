@@ -3,7 +3,7 @@
 namespace cloudlayerio_dotnet.Interfaces
 {
 
-    /// <inheritdoc cref="WaitUntilOptions" />
+    /// <inheritdoc cref="ILayoutDimension" />
     public class LayoutDimension : ILayoutDimension
     {
         /// <summary>
