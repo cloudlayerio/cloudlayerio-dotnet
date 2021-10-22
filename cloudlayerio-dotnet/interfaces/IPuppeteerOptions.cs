@@ -5,10 +5,10 @@ namespace cloudlayerio_dotnet.interfaces
     /// <summary>
     ///     Options that are specific to Puppeteer endpoints.
     /// </summary>
-    internal interface IPuppeteerOptions
+    public interface IPuppeteerOptions
     {
         /// <inheritdoc cref="WaitUntilOptions" />
-        WaitUntilOptions? WaitUntil { get; set; }
+        public WaitUntilOptions? WaitUntil { get; set; }
 
         /// <inheritdoc cref="IWaitForSelector" />
         IWaitForSelector WaitForSelector { get; set; }

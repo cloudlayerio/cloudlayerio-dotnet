@@ -1,4 +1,5 @@
-﻿namespace cloudlayerio_dotnet.interfaces
+﻿
+namespace cloudlayerio_dotnet.interfaces
 {
     /// <summary>
     ///     Base options that are shared across all endpoints.
