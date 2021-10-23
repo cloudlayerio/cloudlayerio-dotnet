@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace cloudlayerio_dotnet.responses
 {
     public class FailureResponse
@@ -7,9 +5,9 @@ namespace cloudlayerio_dotnet.responses
         public bool Allowed { get; set; }
 
         public int StatusCode { get; set; }
-        
+
         public string Reason { get; set; }
-        
+
         public string Error { get; set; }
     }
 }

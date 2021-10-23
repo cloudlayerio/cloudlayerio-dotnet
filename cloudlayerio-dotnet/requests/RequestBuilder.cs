@@ -14,15 +14,19 @@ namespace cloudlayerio_dotnet.requests
     {
         private const string ApiEndpoint = "https://api.cloudlayer.io/v1/";
         private readonly HttpClient _httpClient;
+        private readonly IStorage _storage;
 
         public RequestBuilder(HttpClient httpClient, string apiKey)
+            : this(httpClient, apiKey, new FilesystemStorage())
+        {
+        }
+
+        public RequestBuilder(HttpClient httpClient, string apiKey, IStorage storage)
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            _storage = storage;
 
-            if (apiKey == null)
-            {
-                throw new ArgumentNullException(nameof(apiKey));
-            }
+            if (apiKey == null) throw new ArgumentNullException(nameof(apiKey));
 
             _httpClient.DefaultRequestHeaders.Add("x-api-key", apiKey);
         }
@@ -43,14 +47,30 @@ namespace cloudlayerio_dotnet.requests
             return await CreateReturnResponseFailure(returnResponse, response);
         }
 
-        private static async Task<ReturnResponse> CreateReturnResponseFailure(ReturnResponse returnResponse,
+        private async Task<ReturnResponse> CreateReturnResponseFailure(ReturnResponse returnResponse,
             HttpResponseMessage response)
         {
             returnResponse.IsOk = false;
 
-            var errorJson = await response.Content.ReadAsStringAsync();
-            returnResponse.FailureResponse =
-                ClSerializer.Deserialize<FailureResponse>(errorJson);
+            try
+            {
+                var errorJson = await response.Content.ReadAsStringAsync();
+                returnResponse.FailureResponse =
+                    ClSerializer.Deserialize<FailureResponse>(errorJson);
+            }
+            catch (Exception e)
+            {
+                returnResponse = new ReturnResponse(_storage)
+                {
+                    IsOk = false,
+                    FailureResponse = new FailureResponse
+                    {
+                        Allowed = false,
+                        Error = e.Message,
+                        Reason = "Unknown error occurred. Please check Error property for details."
+                    }
+                };
+            }
 
             return returnResponse;
         }
@@ -63,18 +83,19 @@ namespace cloudlayerio_dotnet.requests
             return returnResponse;
         }
 
-        private static ReturnResponse MapRateLimits(HttpResponseMessage response)
+        private ReturnResponse MapRateLimits(HttpResponseMessage response)
         {
-            var returnResponse = new ReturnResponse
+            response.Headers.TryGetValues("X-RateLimit-Limit", out var limitHeader);
+            response.Headers.TryGetValues("X-RateLimit-Remaining", out var remainingHeader);
+            response.Headers.TryGetValues("X-RateLimit-Reset", out var resetHeader);
+
+            var returnResponse = new ReturnResponse(_storage)
             {
                 RateLimits = new RateLimits
                 {
-                    Limit = Convert.ToInt32(response.Headers
-                        .GetValues("X-RateLimit-Limit").First()),
-                    Remaining = Convert.ToInt32(response.Headers
-                        .GetValues("X-RateLimit-Remaining").First()),
-                    Reset = Convert.ToInt64(response.Headers
-                        .GetValues("X-RateLimit-Reset").First())
+                    Limit = Convert.ToInt32(limitHeader?.FirstOrDefault()),
+                    Remaining = Convert.ToInt32(remainingHeader?.FirstOrDefault()),
+                    Reset = Convert.ToInt64(resetHeader?.FirstOrDefault())
                 }
             };
             return returnResponse;

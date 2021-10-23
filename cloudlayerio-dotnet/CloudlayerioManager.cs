@@ -10,8 +10,8 @@ namespace cloudlayerio_dotnet
     /// </summary>
     public class CloudlayerioManager
     {
-        private readonly HttpClient _httpClient;
         private readonly string _apiKey;
+        private readonly HttpClient _httpClient;
 
         /// <summary>
         ///     Initialize the cloudlayer.io Manager
