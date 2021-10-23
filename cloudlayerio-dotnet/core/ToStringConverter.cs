@@ -16,10 +16,7 @@ namespace cloudlayerio_dotnet.core
             if (value is bool)
             {
                 var success = bool.TryParse(value.ToString(), out var boolVal);
-                if (success)
-                {
-                    writer.WriteBooleanValue(boolVal);
-                }
+                if (success) writer.WriteBooleanValue(boolVal);
             }
             else
             {

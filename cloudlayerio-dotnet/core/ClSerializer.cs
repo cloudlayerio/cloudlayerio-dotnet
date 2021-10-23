@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace cloudlayerio_dotnet.core
 {
-    public static class RequestSerializer
+    public static class ClSerializer
     {
         public static string Serialize<T>(T obj)
         {
@@ -13,17 +13,21 @@ namespace cloudlayerio_dotnet.core
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 Converters =
                 {
-                    new JsonStringEnumConverter(JsonNamingPolicy.CamelCase),
-                    
+                    new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
                 }
             });
 
             return json;
         }
 
-        public static T Deserialize<T>(string json)
+        public static T Deserialize<T>(string json) where T : class
         {
-            throw new System.NotImplementedException();
+            var obj = JsonSerializer.Deserialize<T>(json, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return obj;
         }
     }
 }

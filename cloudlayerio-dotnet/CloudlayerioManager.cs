@@ -1,7 +1,7 @@
-using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using cloudlayerio_dotnet.requests;
+using cloudlayerio_dotnet.responses;
 
 namespace cloudlayerio_dotnet
 {
@@ -38,10 +38,10 @@ namespace cloudlayerio_dotnet
         }
 
         /// <summary>
-        /// This endpoint allows you to convert any publicly accessible URL into an Image.
+        ///     This endpoint allows you to convert any publicly accessible URL into an Image.
         /// </summary>
         /// <param name="urlToImageParams">Url to Image parameters.</param>
-        public Task<Stream> UrlToImage(UrlToImage urlToImageParams)
+        public Task<ReturnResponse> UrlToImage(UrlToImage urlToImageParams)
         {
             var reqBuilder = new RequestBuilder<UrlToImage>(_httpClient);
             return reqBuilder.SendRequest(urlToImageParams);

@@ -18,7 +18,7 @@ namespace cloudlayerio_dotnet_test
             {
                 Url = "https://google.com"
             };
-            
+
             var rsp = await reqBuilder.SendRequest(urlToImageParams);
         }
     }

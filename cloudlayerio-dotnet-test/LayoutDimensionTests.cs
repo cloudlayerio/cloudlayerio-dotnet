@@ -38,7 +38,7 @@ namespace cloudlayerio_dotnet_test
         public void Serialize_Test()
         {
             var test = new LayoutDimension(UnitTypes.Centimeters, 0.24f).ToString();
-            var val = RequestSerializer.Serialize(test);
+            var val = ClSerializer.Serialize(test);
             Assert.AreEqual("\"0.24cm\"", val);
         }
     }

@@ -1,18 +1,17 @@
-using System.Net.Http;
 using cloudlayerio_dotnet.core;
 using cloudlayerio_dotnet.interfaces;
 
 namespace cloudlayerio_dotnet.requests
 {
-    public class UrlToImage : 
+    public class UrlToImage :
         IOptions, IUrlOptions, IPuppeteerOptions, IImageOptions, IEndpointPath
     {
         public string Path => "url/image";
 
         public ImageType? ImageType { get; set; }
-        
+
         public int? Timeout { get; set; }
-        
+
         public int? Delay { get; set; }
         public string Filename { get; set; }
         public bool? Inline { get; set; }

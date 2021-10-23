@@ -21,8 +21,8 @@ namespace cloudlayerio_dotnet_test
             // httpResponseMessage.Headers.Add("X-Ratelimit-Remaining", "-1");
             // httpResponseMessage.Headers.Add("X-Ratelimit-Reset", "-1");
 
-            mockFakeHttpMessageHandler.Setup(a => 
-                    a.Send(It.IsAny<HttpRequestMessage>())).Returns(httpResponseMessage);
+            mockFakeHttpMessageHandler.Setup(a =>
+                a.Send(It.IsAny<HttpRequestMessage>())).Returns(httpResponseMessage);
 
             return httpClient;
         }
