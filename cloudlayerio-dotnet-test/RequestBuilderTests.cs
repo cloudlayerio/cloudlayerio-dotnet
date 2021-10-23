@@ -12,7 +12,7 @@ namespace cloudlayerio_dotnet_test
         public async Task Test1()
         {
             var httpClient = new HttpClient();
-            var reqBuilder = new RequestBuilder<UrlToImage>(httpClient);
+            var reqBuilder = new RequestBuilder<UrlToImage>(httpClient, "test");
 
             var urlToImageParams = new UrlToImage
             {

@@ -11,6 +11,7 @@ namespace cloudlayerio_dotnet
     public class CloudlayerioManager
     {
         private readonly HttpClient _httpClient;
+        private readonly string _apiKey;
 
         /// <summary>
         ///     Initialize the cloudlayer.io Manager
@@ -29,12 +30,7 @@ namespace cloudlayerio_dotnet
         public CloudlayerioManager(string apiKey, HttpClient httpClient)
         {
             _httpClient = httpClient;
-            ConfigureHttpClient(apiKey);
-        }
-
-        private void ConfigureHttpClient(string apiKey)
-        {
-            _httpClient.DefaultRequestHeaders.Add("x-api-key", apiKey);
+            _apiKey = apiKey;
         }
 
         /// <summary>
@@ -43,7 +39,7 @@ namespace cloudlayerio_dotnet
         /// <param name="urlToImageParams">Url to Image parameters.</param>
         public Task<ReturnResponse> UrlToImage(UrlToImage urlToImageParams)
         {
-            var reqBuilder = new RequestBuilder<UrlToImage>(_httpClient);
+            var reqBuilder = new RequestBuilder<UrlToImage>(_httpClient, _apiKey);
             return reqBuilder.SendRequest(urlToImageParams);
         }
     }

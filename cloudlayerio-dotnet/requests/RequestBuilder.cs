@@ -15,9 +15,16 @@ namespace cloudlayerio_dotnet.requests
         private const string ApiEndpoint = "https://api.cloudlayer.io/v1/";
         private readonly HttpClient _httpClient;
 
-        public RequestBuilder(HttpClient httpClient)
+        public RequestBuilder(HttpClient httpClient, string apiKey)
         {
-            _httpClient = httpClient;
+            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+
+            if (apiKey == null)
+            {
+                throw new ArgumentNullException(nameof(apiKey));
+            }
+
+            _httpClient.DefaultRequestHeaders.Add("x-api-key", apiKey);
         }
 
         public async Task<ReturnResponse> SendRequest(T obj)
@@ -40,7 +47,7 @@ namespace cloudlayerio_dotnet.requests
             HttpResponseMessage response)
         {
             returnResponse.IsOk = false;
-            
+
             var errorJson = await response.Content.ReadAsStringAsync();
             returnResponse.FailureResponse =
                 ClSerializer.Deserialize<FailureResponse>(errorJson);
