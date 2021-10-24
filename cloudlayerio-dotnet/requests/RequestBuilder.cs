@@ -33,6 +33,8 @@ namespace cloudlayerio_dotnet.requests
 
         public async Task<ReturnResponse> SendRequest(T obj)
         {
+            CheckArguments(obj);
+
             var json = JsonSerializer.Serialize(obj);
             var content = new StringContent(json);
 
@@ -45,6 +47,12 @@ namespace cloudlayerio_dotnet.requests
                 return await CreateReturnResponseSuccess(returnResponse, response);
 
             return await CreateReturnResponseFailure(returnResponse, response);
+        }
+
+        private static void CheckArguments(T obj)
+        {
+            if (obj is IUrlOptions urlOpts && !IsValidUrl(urlOpts.Url))
+                throw new ArgumentException("Url is invalid");
         }
 
         private async Task<ReturnResponse> CreateReturnResponseFailure(ReturnResponse returnResponse,
@@ -99,6 +107,11 @@ namespace cloudlayerio_dotnet.requests
                 }
             };
             return returnResponse;
+        }
+
+        private static bool IsValidUrl(string url)
+        {
+            return Uri.TryCreate(url, UriKind.Absolute, out _);
         }
     }
 }

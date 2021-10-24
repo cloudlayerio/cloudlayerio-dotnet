@@ -1,7 +1,7 @@
-using System.Text.Json.Serialization;
 using cloudlayerio_dotnet.interfaces;
+using cloudlayerio_dotnet.types;
 
-namespace cloudlayerio_dotnet.core
+namespace cloudlayerio_dotnet_test.types
 {
     /// <inheritdoc cref="IPuppeteerOptions" />
     public class PuppeteerOptions : IPuppeteerOptions
@@ -13,26 +13,21 @@ namespace cloudlayerio_dotnet.core
         public IWaitForSelector WaitForSelector { get; set; }
 
         /// <inheritdoc />
-        [JsonConverter(typeof(ToStringConverter<bool>))]
-        [JsonPropertyName("preferCSSPageSize")]
-        public bool? PreferCssPageSize { get; set; }
+        public bool? PreferCSSPageSize { get; set; }
 
         /// <inheritdoc />
         public float? Scale { get; set; }
 
         /// <inheritdoc />
-        [JsonConverter(typeof(ToStringConverter<ILayoutDimension>))]
         public ILayoutDimension Height { get; set; }
 
         /// <inheritdoc />
-        [JsonConverter(typeof(ToStringConverter<ILayoutDimension>))]
         public ILayoutDimension Width { get; set; }
 
         /// <inheritdoc />
         public bool? Landscape { get; set; }
 
         /// <inheritdoc />
-        [JsonConverter(typeof(ToStringConverter<IPageRanges>))]
         public IPageRanges PageRanges { get; set; }
 
         /// <inheritdoc />

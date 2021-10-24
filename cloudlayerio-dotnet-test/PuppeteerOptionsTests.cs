@@ -1,4 +1,6 @@
 using cloudlayerio_dotnet.core;
+using cloudlayerio_dotnet.types;
+using cloudlayerio_dotnet_test.types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace cloudlayerio_dotnet_test
@@ -157,7 +159,7 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_PreferCssPageSizeTrueOnly()
         {
-            var options = new PuppeteerOptions {PreferCssPageSize = true};
+            var options = new PuppeteerOptions {PreferCSSPageSize = true};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"preferCSSPageSize\":true}", json);
         }
@@ -165,7 +167,7 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_PreferCssPageSizeFalseOnly()
         {
-            var options = new PuppeteerOptions {PreferCssPageSize = false};
+            var options = new PuppeteerOptions {PreferCSSPageSize = false};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"preferCSSPageSize\":false}", json);
         }

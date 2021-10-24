@@ -1,4 +1,4 @@
-﻿using cloudlayerio_dotnet.core;
+﻿using cloudlayerio_dotnet.types;
 
 namespace cloudlayerio_dotnet.interfaces
 {
@@ -17,7 +17,7 @@ namespace cloudlayerio_dotnet.interfaces
         ///     Give any CSS @page size declared in the page priority over what is declared
         ///     in width and height or format options.
         /// </summary>
-        public bool? PreferCssPageSize { get; set; }
+        public bool? PreferCSSPageSize { get; set; }
 
         /// <summary>
         ///     Scale of the webpage rendering. Defaults to 1. Scale amount must be between 0.1 and 2.

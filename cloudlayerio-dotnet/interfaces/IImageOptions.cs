@@ -1,4 +1,4 @@
-using cloudlayerio_dotnet.core;
+using cloudlayerio_dotnet.types;
 
 namespace cloudlayerio_dotnet.interfaces
 {

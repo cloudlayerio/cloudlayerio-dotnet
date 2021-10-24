@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using cloudlayerio_dotnet.requests;
@@ -37,6 +38,7 @@ namespace cloudlayerio_dotnet
         ///     This endpoint allows you to convert any publicly accessible URL into an Image.
         /// </summary>
         /// <param name="urlToImageParams">Url to Image parameters.</param>
+        /// <exception cref="ArgumentException"></exception>
         public Task<ReturnResponse> UrlToImage(UrlToImage urlToImageParams)
         {
             var reqBuilder = new RequestBuilder<UrlToImage>(_httpClient, _apiKey);

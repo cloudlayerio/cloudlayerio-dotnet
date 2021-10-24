@@ -1,4 +1,4 @@
-namespace cloudlayerio_dotnet.core
+namespace cloudlayerio_dotnet.types
 {
     /// <summary>
     ///     Layout dimension type based on units (Inches, Pixels, Centimeters, or Millimeters)

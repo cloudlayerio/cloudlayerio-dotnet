@@ -1,6 +1,6 @@
 ﻿using cloudlayerio_dotnet.interfaces;
 
-namespace cloudlayerio_dotnet.core
+namespace cloudlayerio_dotnet.types
 {
     /// <inheritdoc cref="ILayoutDimension" />
     public class LayoutDimension : ILayoutDimension

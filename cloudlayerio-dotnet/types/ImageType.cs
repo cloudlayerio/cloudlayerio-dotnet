@@ -1,4 +1,4 @@
-namespace cloudlayerio_dotnet.core
+namespace cloudlayerio_dotnet.types
 {
     public enum ImageType
     {

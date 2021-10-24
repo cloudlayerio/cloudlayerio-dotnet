@@ -1,4 +1,4 @@
-﻿namespace cloudlayerio_dotnet.core
+﻿namespace cloudlayerio_dotnet.types
 {
     /// <summary>
     ///     Puppeteer has an option called waitUntil where you can pass in several options.

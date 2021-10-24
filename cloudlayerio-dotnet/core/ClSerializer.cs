@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using cloudlayerio_dotnet.interfaces;
 
 namespace cloudlayerio_dotnet.core
 {
@@ -13,7 +14,9 @@ namespace cloudlayerio_dotnet.core
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 Converters =
                 {
-                    new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
+                    new JsonStringEnumConverter(JsonNamingPolicy.CamelCase),
+                    new ToStringConverter<ILayoutDimension>(),
+                    new ToStringConverter<IPageRanges>()
                 }
             });
 

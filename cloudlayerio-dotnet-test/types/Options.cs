@@ -1,6 +1,6 @@
 ﻿using cloudlayerio_dotnet.interfaces;
 
-namespace cloudlayerio_dotnet.core
+namespace cloudlayerio_dotnet_test.types
 {
     /// <inheritdoc />
     public class Options : IOptions
