@@ -1,17 +1,16 @@
 using cloudlayerio_dotnet.core;
+using cloudlayerio_dotnet.interfaces;
 using cloudlayerio_dotnet.types;
-using cloudlayerio_dotnet_test.types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace cloudlayerio_dotnet_test
 {
-    [TestClass]
-    public class PuppeteerOptionsTests
+    public class PuppeteerOptionsTests<T> where T : IPuppeteerOptions, new()
     {
         [TestMethod]
         public void Serialize_Empty()
         {
-            var options = new PuppeteerOptions();
+            var options = new T();
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{}", json);
         }
@@ -19,7 +18,7 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_HeightOnly()
         {
-            var options = new PuppeteerOptions {Height = new LayoutDimension(UnitTypes.Pixels, 800)};
+            var options = new T {Height = new LayoutDimension(UnitTypes.Pixels, 800)};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"height\":\"800px\"}", json);
         }
@@ -27,7 +26,7 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_WidthOnly()
         {
-            var options = new PuppeteerOptions {Width = new LayoutDimension(UnitTypes.Pixels, 600)};
+            var options = new T {Width = new LayoutDimension(UnitTypes.Pixels, 600)};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"width\":\"600px\"}", json);
         }
@@ -35,7 +34,7 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_LandscapeTrueOnly()
         {
-            var options = new PuppeteerOptions {Landscape = true};
+            var options = new T {Landscape = true};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"landscape\":true}", json);
         }
@@ -43,7 +42,7 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_LandscapeFalseOnly()
         {
-            var options = new PuppeteerOptions {Landscape = false};
+            var options = new T {Landscape = false};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"landscape\":false}", json);
         }
@@ -51,7 +50,7 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_ScaleOnly()
         {
-            var options = new PuppeteerOptions {Scale = 0.4f};
+            var options = new T {Scale = 0.4f};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"scale\":0.4}", json);
         }
@@ -59,7 +58,7 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_AutoScrollTrueOnly()
         {
-            var options = new PuppeteerOptions {AutoScroll = true};
+            var options = new T {AutoScroll = true};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"autoScroll\":true}", json);
         }
@@ -67,7 +66,7 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_AutoScrollFalseOnly()
         {
-            var options = new PuppeteerOptions {AutoScroll = false};
+            var options = new T {AutoScroll = false};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"autoScroll\":false}", json);
         }
@@ -75,7 +74,7 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_PageRangesOnly()
         {
-            var options = new PuppeteerOptions {PageRanges = new PageRanges(1, 4)};
+            var options = new T {PageRanges = new PageRanges(1, 4)};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"pageRanges\":\"1-4\"}", json);
         }
@@ -83,7 +82,7 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_WaitUntilOnly()
         {
-            var options = new PuppeteerOptions {WaitUntil = WaitUntilOptions.networkidle0};
+            var options = new T {WaitUntil = WaitUntilOptions.networkidle0};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"waitUntil\":\"networkidle0\"}", json);
         }
@@ -91,7 +90,7 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_WaitForSelectorSelectorOnly()
         {
-            var options = new PuppeteerOptions
+            var options = new T
             {
                 WaitForSelector = new WaitForSelector
                 {
@@ -105,7 +104,7 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_WaitForSelectorOptionsVisibleTrueOnly()
         {
-            var options = new PuppeteerOptions
+            var options = new T
             {
                 WaitForSelector = new WaitForSelector
                 {
@@ -123,7 +122,7 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_WaitForSelectorOptionsHiddenTrueOnly()
         {
-            var options = new PuppeteerOptions
+            var options = new T
             {
                 WaitForSelector = new WaitForSelector
                 {
@@ -141,7 +140,7 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_WaitForSelectorOptionsTimeoutTrueOnly()
         {
-            var options = new PuppeteerOptions
+            var options = new T
             {
                 WaitForSelector = new WaitForSelector
                 {
@@ -159,7 +158,7 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_PreferCssPageSizeTrueOnly()
         {
-            var options = new PuppeteerOptions {PreferCSSPageSize = true};
+            var options = new T {PreferCSSPageSize = true};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"preferCSSPageSize\":true}", json);
         }
@@ -167,7 +166,7 @@ namespace cloudlayerio_dotnet_test
         [TestMethod]
         public void Serialize_PreferCssPageSizeFalseOnly()
         {
-            var options = new PuppeteerOptions {PreferCSSPageSize = false};
+            var options = new T {PreferCSSPageSize = false};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"preferCSSPageSize\":false}", json);
         }

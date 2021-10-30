@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using cloudlayerio_dotnet.interfaces;
 using cloudlayerio_dotnet.types;
 
@@ -6,6 +7,7 @@ namespace cloudlayerio_dotnet.requests
     public class UrlToImage :
         IOptions, IUrlOptions, IPuppeteerOptions, IEndpointPath
     {
+        [JsonIgnore]
         public string Path => "url/image";
 
         public int? Timeout { get; set; }
@@ -33,6 +35,10 @@ namespace cloudlayerio_dotnet.requests
         public IPageRanges PageRanges { get; set; }
 
         public bool? AutoScroll { get; set; }
+        
+        public IViewport ViewPort { get; set; }
+        
+        public string TimeZone { get; set; }
 
         public string Url { get; set; }
     }

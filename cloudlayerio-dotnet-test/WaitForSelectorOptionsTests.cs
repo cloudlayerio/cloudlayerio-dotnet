@@ -1,5 +1,5 @@
 using cloudlayerio_dotnet.core;
-using cloudlayerio_dotnet_test.types;
+using cloudlayerio_dotnet.types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace cloudlayerio_dotnet_test
