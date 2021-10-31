@@ -11,7 +11,7 @@ namespace cloudlayerio_dotnet_test.base_tests
         {
             var options = new T {Url = "https://cloudlayer.io"};
             var json = ClSerializer.Serialize(options);
-            
+
             Assert.AreEqual("{\"url\":\"https://cloudlayer.io\"}", json);
         }
     }

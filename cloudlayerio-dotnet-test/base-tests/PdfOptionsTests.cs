@@ -262,7 +262,7 @@ namespace cloudlayerio_dotnet_test.base_tests
                 "{\"footerTemplate\":{\"template\":\"Test template\"}}",
                 json);
         }
-        
+
         [TestMethod]
         public void Serialize_PrintBackground()
         {

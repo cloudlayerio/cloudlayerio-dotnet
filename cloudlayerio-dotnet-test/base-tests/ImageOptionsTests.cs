@@ -14,59 +14,59 @@ namespace cloudlayerio_dotnet_test.base_tests
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{}", json);
         }
-        
+
         [TestMethod]
         public void Serialize_ImageTypeBMP()
         {
-            var options = new T { ImageType = ImageType.BMP};
+            var options = new T {ImageType = ImageType.BMP};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"imageType\":\"BMP\"}", json);
         }
-        
+
         [TestMethod]
         public void Serialize_ImageTypeEPS()
         {
-            var options = new T { ImageType = ImageType.EPS};
+            var options = new T {ImageType = ImageType.EPS};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"imageType\":\"EPS\"}", json);
         }
-        
+
         [TestMethod]
         public void Serialize_ImageTypeGIF()
         {
-            var options = new T { ImageType = ImageType.GIF};
+            var options = new T {ImageType = ImageType.GIF};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"imageType\":\"GIF\"}", json);
         }
-        
+
         [TestMethod]
         public void Serialize_ImageTypeJPEG()
         {
-            var options = new T { ImageType = ImageType.JPEG};
+            var options = new T {ImageType = ImageType.JPEG};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"imageType\":\"JPEG\"}", json);
         }
-        
+
         [TestMethod]
         public void Serialize_ImageTypePNG()
         {
-            var options = new T { ImageType = ImageType.PNG};
+            var options = new T {ImageType = ImageType.PNG};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"imageType\":\"PNG\"}", json);
         }
-        
+
         [TestMethod]
         public void Serialize_ImageTypeSVG()
         {
-            var options = new T { ImageType = ImageType.SVG};
+            var options = new T {ImageType = ImageType.SVG};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"imageType\":\"SVG\"}", json);
         }
-        
+
         [TestMethod]
         public void Serialize_ImageTypeTIFF()
         {
-            var options = new T { ImageType = ImageType.TIFF};
+            var options = new T {ImageType = ImageType.TIFF};
             var json = ClSerializer.Serialize(options);
             Assert.AreEqual("{\"imageType\":\"TIFF\"}", json);
         }

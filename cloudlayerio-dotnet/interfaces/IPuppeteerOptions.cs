@@ -59,7 +59,12 @@ namespace cloudlayerio_dotnet.interfaces
 
         /// <summary>
         ///     Specify the timezone to emulate during page rendering.
-        ///     For a list of available values see: <a href="https://source.chromium.org/chromium/chromium/deps/icu.git/+/faee8bc70570192d82d2978a71e2a615788597d1:source/data/misc/metaZones.txt">Available Timezones</a>
+        ///     For a list of available values see:
+        ///     <a
+        ///         href="https://source.chromium.org/chromium/chromium/deps/icu.git/+/faee8bc70570192d82d2978a71e2a615788597d1:source/data/misc/metaZones.txt">
+        ///         Available
+        ///         Timezones
+        ///     </a>
         /// </summary>
         /// <example>Asia/Hong_Kong</example>
         public string TimeZone { get; set; }

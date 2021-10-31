@@ -18,7 +18,7 @@ namespace cloudlayerio_dotnet_test.requests_tests
     public class UrlToImageUrlOptionsTests : UrlOptionsTests<UrlToImage>
     {
     }
-    
+
     [TestClass]
     public class UrlToImageImageOptionsTests : ImageOptionsTests<UrlToImage>
     {

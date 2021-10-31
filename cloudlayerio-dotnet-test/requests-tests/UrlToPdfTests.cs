@@ -18,7 +18,7 @@ namespace cloudlayerio_dotnet_test.requests_tests
     public class UrlToPdfUrlOptionsTests : UrlOptionsTests<UrlToPdf>
     {
     }
-    
+
     [TestClass]
     public class UrlToPdfPdfOptionsTests : PdfOptionsTests<UrlToPdf>
     {

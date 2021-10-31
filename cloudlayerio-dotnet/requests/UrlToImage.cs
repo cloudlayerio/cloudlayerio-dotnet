@@ -7,8 +7,9 @@ namespace cloudlayerio_dotnet.requests
     public class UrlToImage :
         IOptions, IUrlOptions, IImageOptions, IPuppeteerOptions, IEndpointPath
     {
-        [JsonIgnore]
-        public string Path => "url/image";
+        [JsonIgnore] public string Path => "url/image";
+
+        public ImageType? ImageType { get; set; }
 
         public int? Timeout { get; set; }
         public int? Delay { get; set; }
@@ -26,6 +27,5 @@ namespace cloudlayerio_dotnet.requests
         public IViewport ViewPort { get; set; }
         public string TimeZone { get; set; }
         public string Url { get; set; }
-        public ImageType? ImageType { get; set; }
     }
 }
