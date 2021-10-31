@@ -5,11 +5,12 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using cloudlayerio_dotnet.requests;
+using cloudlayerio_dotnet_test.fakes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Language;
 
-namespace cloudlayerio_dotnet_test
+namespace cloudlayerio_dotnet_test.requests_tests
 {
     [TestClass]
     public class RequestBuilderTests

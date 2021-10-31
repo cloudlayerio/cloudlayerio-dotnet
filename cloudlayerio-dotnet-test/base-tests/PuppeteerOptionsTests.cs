@@ -3,7 +3,7 @@ using cloudlayerio_dotnet.interfaces;
 using cloudlayerio_dotnet.types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace cloudlayerio_dotnet_test
+namespace cloudlayerio_dotnet_test.base_tests
 {
     public class PuppeteerOptionsTests<T> where T : IPuppeteerOptions, new()
     {

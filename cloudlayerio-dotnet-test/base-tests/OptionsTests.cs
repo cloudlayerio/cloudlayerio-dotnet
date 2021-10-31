@@ -2,9 +2,9 @@ using cloudlayerio_dotnet.core;
 using cloudlayerio_dotnet.interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace cloudlayerio_dotnet_test
+namespace cloudlayerio_dotnet_test.base_tests
 {
-    public class OptionsTests <T> where T : IOptions, new()
+    public class OptionsTests<T> where T : IOptions, new()
     {
         [TestMethod]
         public void Serialize_Empty()

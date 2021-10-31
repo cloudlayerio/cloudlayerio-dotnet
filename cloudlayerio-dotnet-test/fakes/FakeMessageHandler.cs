@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace cloudlayerio_dotnet_test
+namespace cloudlayerio_dotnet_test.fakes
 {
     public abstract class FakeHttpMessageHandler : HttpMessageHandler
     {

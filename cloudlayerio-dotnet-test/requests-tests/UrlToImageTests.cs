@@ -1,7 +1,8 @@
 using cloudlayerio_dotnet.requests;
+using cloudlayerio_dotnet_test.base_tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace cloudlayerio_dotnet_test
+namespace cloudlayerio_dotnet_test.requests_tests
 {
     [TestClass]
     public class UrlToImagePuppeteerOptionsTests : PuppeteerOptionsTests<UrlToImage>
@@ -15,6 +16,11 @@ namespace cloudlayerio_dotnet_test
 
     [TestClass]
     public class UrlToImageUrlOptionsTests : UrlOptionsTests<UrlToImage>
+    {
+    }
+    
+    [TestClass]
+    public class UrlToImageImageOptionsTests : ImageOptionsTests<UrlToImage>
     {
     }
 

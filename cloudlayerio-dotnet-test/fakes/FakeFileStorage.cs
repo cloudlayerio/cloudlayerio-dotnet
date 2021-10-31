@@ -1,7 +1,7 @@
 using System.IO;
 using cloudlayerio_dotnet.core;
 
-namespace cloudlayerio_dotnet_test
+namespace cloudlayerio_dotnet_test.fakes
 {
     public class FakeFileStorage : IStorage
     {

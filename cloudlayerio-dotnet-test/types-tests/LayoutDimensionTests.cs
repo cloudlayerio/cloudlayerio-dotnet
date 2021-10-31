@@ -2,7 +2,7 @@ using cloudlayerio_dotnet.core;
 using cloudlayerio_dotnet.types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace cloudlayerio_dotnet_test
+namespace cloudlayerio_dotnet_test.types_tests
 {
     [TestClass]
     public class LayoutDimensionTests

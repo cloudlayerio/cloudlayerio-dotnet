@@ -2,7 +2,7 @@ using System;
 using cloudlayerio_dotnet.responses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace cloudlayerio_dotnet_test
+namespace cloudlayerio_dotnet_test.types_tests
 {
     [TestClass]
     public class RateLimitTests

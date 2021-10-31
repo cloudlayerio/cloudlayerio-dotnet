@@ -2,7 +2,7 @@ using System.Net;
 using System.Net.Http;
 using Moq;
 
-namespace cloudlayerio_dotnet_test
+namespace cloudlayerio_dotnet_test.fakes
 {
     public static class FakeHttpClient
     {

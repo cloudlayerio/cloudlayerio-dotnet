@@ -4,12 +4,12 @@ using cloudlayerio_dotnet.types;
 
 namespace cloudlayerio_dotnet.requests
 {
-    public class UrlToImage :
-        IOptions, IUrlOptions, IImageOptions, IPuppeteerOptions, IEndpointPath
+    public class UrlToPdf :
+        IOptions, IUrlOptions,IPdfOptions, IPuppeteerOptions, IEndpointPath
     {
         [JsonIgnore]
-        public string Path => "url/image";
-
+        public string Path => "url/pdf";
+        
         public int? Timeout { get; set; }
         public int? Delay { get; set; }
         public string Filename { get; set; }
@@ -26,6 +26,10 @@ namespace cloudlayerio_dotnet.requests
         public IViewport ViewPort { get; set; }
         public string TimeZone { get; set; }
         public string Url { get; set; }
-        public ImageType? ImageType { get; set; }
+        public bool? PrintBackground { get; set; }
+        public PDFFormat? Format { get; set; }
+        public Margin Margin { get; set; }
+        public IHeaderFooterTemplate HeaderTemplate { get; set; }
+        public IHeaderFooterTemplate FooterTemplate { get; set; }
     }
 }

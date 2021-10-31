@@ -2,7 +2,7 @@ using cloudlayerio_dotnet.core;
 using cloudlayerio_dotnet.interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace cloudlayerio_dotnet_test
+namespace cloudlayerio_dotnet_test.base_tests
 {
     public class UrlOptionsTests<T> where T : IUrlOptions, new()
     {
