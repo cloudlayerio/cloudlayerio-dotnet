@@ -41,14 +41,22 @@ namespace cloudlayerio_dotnet.requests
             var content = new StringContent(json, null, "application/json");
 
             var url = new Uri(new Uri(ApiEndpoint), obj.Path).ToString();
-            var response = await _httpClient.PostAsync(url, content);
 
-            var returnResponse = MapRateLimits(response);
+            try
+            {
+                var response = await _httpClient.PostAsync(url, content);
 
-            if ((int) response.StatusCode >= 200 && (int) response.StatusCode <= 299)
-                return await CreateReturnResponseSuccess(returnResponse, response);
+                var returnResponse = MapRateLimits(response);
 
-            return await CreateReturnResponseFailure(returnResponse, response);
+                if ((int) response.StatusCode >= 200 && (int) response.StatusCode <= 299)
+                    return await CreateReturnResponseSuccess(returnResponse, response);
+                
+                return await CreateReturnResponseFailure(returnResponse, response);
+            }
+            catch (Exception e)
+            {
+                return CreateReturnResponse(e);
+            }
         }
 
         private static void CheckArguments(T obj)
@@ -67,22 +75,27 @@ namespace cloudlayerio_dotnet.requests
                 var errorJson = await response.Content.ReadAsStringAsync();
                 returnResponse.FailureResponse =
                     ClSerializer.Deserialize<FailureResponse>(errorJson);
+
+                return returnResponse;
             }
             catch (Exception e)
             {
-                returnResponse = new ReturnResponse(_storage)
-                {
-                    IsOk = false,
-                    FailureResponse = new FailureResponse
-                    {
-                        Allowed = false,
-                        Error = e.Message,
-                        Reason = "Unknown error occurred. Please check Error property for details."
-                    }
-                };
+                return CreateReturnResponse(e);
             }
+        }
 
-            return returnResponse;
+        private ReturnResponse CreateReturnResponse(Exception e)
+        {
+            return new ReturnResponse(_storage)
+            {
+                IsOk = false,
+                FailureResponse = new FailureResponse
+                {
+                    Allowed = false,
+                    Error = e.Message,
+                    Reason = "Unknown error occurred. Please check Error property for details."
+                }
+            };
         }
 
         private static async Task<ReturnResponse> CreateReturnResponseSuccess(ReturnResponse returnResponse,

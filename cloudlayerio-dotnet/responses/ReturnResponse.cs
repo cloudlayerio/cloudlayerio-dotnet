@@ -1,3 +1,5 @@
+using System;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using cloudlayerio_dotnet.core;
@@ -41,8 +43,19 @@ namespace cloudlayerio_dotnet.responses
         /// <param name="filePath">The filepath to save the document (will overwrite existing)</param>
         public async Task SaveToFilesystem(string filePath)
         {
-            await using var fileStream = _storage.GetFileStream(filePath);
-            await Stream.CopyToAsync(fileStream);
+            var dir = Path.GetDirectoryName(filePath);
+            Directory.CreateDirectory(dir!);
+
+            if (Stream?.Length > 0 && IsOk)
+            {
+                await using var fileStream = _storage.GetFileStream(filePath);
+                await Stream.CopyToAsync(fileStream);
+            }
+            else
+            {
+                await using var writer = File.AppendText(Path.Combine(dir, "error.log"));
+                await writer.WriteLineAsync($"{DateTime.Now.ToString(CultureInfo.CurrentCulture)}\t{filePath}\t{FailureResponse.Reason}\t{FailureResponse.Error}");
+            }
         }
     }
 }

@@ -1,20 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.Mime;
 using System.Threading.Tasks;
 using cloudlayerio_dotnet;
 using cloudlayerio_dotnet.requests;
+using cloudlayerio_dotnet.responses;
+using cloudlayerio_dotnet.types;
 
 namespace cloudlayerio_dotnet_examples
 {
-    class Program
+    internal static class Program
     {
         private static CloudlayerioManager _manager;
         private static Dictionary<string, Func<Task>> _options;
 
-        static async Task Main(string[] args)
+        private static string[] _websites =
+        {
+            "https://en.wikipedia.org/wiki/Hypericum_calycinum", //1
+            "https://www.bing.com/", //2
+            "https://www.msn.com/en-us", //3
+            "https://apple.com", //4
+            "https://reddit.com", //5
+            "https://github.com", //6
+            "https://www.bbc.com/", //7
+            "https://microsoft.com", //8
+            "https://mozilla.org", //9
+            "https://wordpress.org", //10
+        };
+
+        private static async Task Main(string[] args)
         {
             Console.WriteLine(
                 "This is an example application demonstrating the very basic capabilities of cloudlayer.io");
@@ -25,10 +41,23 @@ namespace cloudlayerio_dotnet_examples
             _manager = new CloudlayerioManager(key);
             _options = new Dictionary<string, Func<Task>>
             {
-                ["UrlToPdf (google.com) -> google.pdf"] = GetGooglePdf
+                ["UrlToImage Single Website"] = GetGoogleImage,
+                ["UrlToImage Batch 10 in Parallel (High Resolution, Autoscroll)"] = () => Get20Websites(GetUrlToImageTasks()),
+                ["UrlToPdf Single Website"] = GetGooglePdf,
+                ["UrlToPdf Batch 10 in Parallel (High Resolution, Autoscroll)"] = () => Get20Websites(GetUrlToPdfTasks()),
+                ["Exit"] = Exit
             };
 
             await GetSelection();
+        }
+
+
+        private static Task Exit()
+        {
+            Console.Clear();
+            Console.WriteLine("Exiting application...");
+            Environment.Exit(0);
+            return Task.FromResult(true);
         }
 
         private static async Task GetSelection()
@@ -47,6 +76,7 @@ namespace cloudlayerio_dotnet_examples
                 Console.Write("Enter Selection: ");
                 var selectionNumber = Convert.ToInt32(Console.ReadKey(false).KeyChar.ToString());
 
+                Console.Clear();
                 await _options.Values.ElementAt(selectionNumber - 1).Invoke();
             }
         }
@@ -65,21 +95,126 @@ namespace cloudlayerio_dotnet_examples
             }
         }
 
-        private static async Task GetGooglePdf()
+        private static Task Get20Websites(Task[] tasks)
         {
-            Console.Clear();
-            Console.WriteLine("Working, please wait...");
+            Console.WriteLine("Batch process started");
+            Task.WaitAll(tasks.ToArray());
+            Console.WriteLine("Batch process completed");
+            DisplayContinueText();
+
+            return Task.FromResult(true);
+        }
+
+        private static Task[] GetUrlToImageTasks()
+        {
+            var tasks = new List<Task>();
+            foreach (var url in _websites)
+            {
+                DisplayBeginText(url);
+                tasks.Add(ProcessWebsite(url, ".png", "UrlToImage10", _manager.UrlToImage(new UrlToImage
+                {
+                    Url = url,
+                    AutoScroll = true,
+                    Timeout = 60000,
+                    ViewPort = new ViewPort
+                    {
+                        Width = 1920,
+                        Height = 1080,
+                        DeviceScaleFactor = 2
+                    }
+                })));
+            }
+
+            return tasks.ToArray();
+        }
+
+        private static Task[] GetUrlToPdfTasks()
+        {
+            var tasks = new List<Task>();
+            foreach (var url in _websites)
+            {
+                DisplayBeginText(url);
+                tasks.Add(ProcessWebsite(url, ".pdf", "UrlToPdf10", _manager.UrlToPdf(new UrlToPdf
+                {
+                    Url = url
+                })));
+            }
+
+            return tasks.ToArray();
+        }
+
+        private static async Task ProcessWebsite(string url, string ext, string dirName, Task<ReturnResponse> task)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            var rsp = await task;
+
+            var fileName = new Uri(url).Host + ext;
+            var filePath = Path.Combine("examples_out", dirName, fileName);
+            await rsp.SaveToFilesystem(filePath);
+
+            stopwatch.Stop();
+
+            DisplayEndText($"{(rsp.IsOk ? "Completed" : "Failed")}: {url}->{filePath} ({stopwatch.Elapsed})");
+            if (!rsp.IsOk)
+                Console.WriteLine(("For failures, check the error.log in root of output folder."));
+        }
+
+        private static async Task GetGoogleImage()
+        {
+            const string url = "https://google.com";
+
+            DisplayBeginText(url);
             var rsp = await _manager.UrlToImage(new UrlToImage
             {
-                Url = "https://google.com"
+                Url = url,
+                AutoScroll = true,
+                ViewPort = new ViewPort
+                {
+                    Height = 2560,
+                    Width = 1440,
+                    DeviceScaleFactor = 2
+                }
             });
 
-            await rsp.SaveToFilesystem("google.png");
-            Console.Write(
+            await rsp.SaveToFilesystem(Path.Combine("examples_out", "UrlToImage", "google.png"));
+            DisplayEndText(
                 "The image google.png has been saved to your filesystem successfully! (Check the bin directory)");
-            Console.WriteLine();
+            DisplayContinueText();
+        }
+
+        private static async Task GetGooglePdf()
+        {
+            const string url = "https://google.com";
+
+            DisplayBeginText(url);
+            var rsp = await _manager.UrlToPdf(new UrlToPdf
+            {
+                Url = url
+            });
+
+            await rsp.SaveToFilesystem(Path.Combine("examples_out", "UrlToPdf", "google.pdf"));
+            DisplayEndText(
+                "The image google.pdf has been saved to your filesystem successfully! (Check the bin directory)");
+            DisplayContinueText();
+        }
+
+        private static void DisplayContinueText()
+        {
             Console.WriteLine("Press any key to continue...");
-            Console.ReadLine();
+            Console.ReadKey(true);
+        }
+
+        private static void DisplayEndText(string message)
+        {
+            Console.Write(
+                message);
+            Console.WriteLine();
+        }
+
+        private static void DisplayBeginText(string url)
+        {
+            Console.WriteLine($"{url}: Working, please wait...");
         }
     }
 }

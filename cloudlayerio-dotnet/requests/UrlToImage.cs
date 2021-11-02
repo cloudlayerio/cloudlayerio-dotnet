@@ -10,7 +10,7 @@ namespace cloudlayerio_dotnet.requests
         [JsonIgnore] public string Path => "url/image";
 
         public ImageType? ImageType { get; set; }
-
+        
         public int? Timeout { get; set; }
         public int? Delay { get; set; }
         public string Filename { get; set; }
