@@ -1,7 +1,5 @@
-using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using cloudlayerio_dotnet.core;
 using cloudlayerio_dotnet.interfaces;
 using cloudlayerio_dotnet.requests;
 using cloudlayerio_dotnet.responses;
@@ -64,6 +62,26 @@ namespace cloudlayerio_dotnet
         public Task<ReturnResponse> HtmlToImage(HtmlToImage htmlToImage)
         {
             return SendRequest(htmlToImage);
+        }
+        
+        /// <summary>
+        ///     This endpoints lets you to convert any html to a pdf.
+        /// </summary>
+        /// <param name="htmlToPdf">Html to Pdf parameters.</param>
+        /// <returns>Returns a ReturnResponse type</returns>
+        public Task<ReturnResponse> HtmlToPdf(HtmlToPdf htmlToPdf)
+        {
+            return SendRequest(htmlToPdf);
+        }
+        
+        /// <summary>
+        ///     This endpoints lets you to convert any html to a pdf.
+        /// </summary>
+        /// <param name="docxToPdf">Docx to Pdf parameters.</param>
+        /// <returns>Returns a ReturnResponse type</returns>
+        public Task<ReturnResponse> DocxToPdf(DocxToPdf docxToPdf)
+        {
+            return SendRequest(docxToPdf);
         }
 
         private Task<ReturnResponse> SendRequest<T>(T obj) where T : class, IEndpointPath

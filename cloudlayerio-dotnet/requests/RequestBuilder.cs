@@ -1,9 +1,7 @@
 using System;
+using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text.Json;
 using System.Threading.Tasks;
 using cloudlayerio_dotnet.core;
 using cloudlayerio_dotnet.interfaces;
@@ -31,19 +29,20 @@ namespace cloudlayerio_dotnet.requests
 
             if (!_httpClient.DefaultRequestHeaders.Contains("x-api-key"))
                 _httpClient.DefaultRequestHeaders.Add("x-api-key", apiKey);
+
+            if (!_httpClient.DefaultRequestHeaders.Contains("User-Agent"))
+                _httpClient.DefaultRequestHeaders.Add("User-Agent", "cloudlayerio-dotnet SDK");
         }
 
         public async Task<ReturnResponse> SendRequest(T obj)
         {
             CheckArguments(obj);
 
-            var json = ClSerializer.Serialize(obj);
-            var content = new StringContent(json, null, "application/json");
-
             var url = new Uri(new Uri(ApiEndpoint), obj.Path).ToString();
 
             try
             {
+                using var content = CreateHttpContent(obj);
                 var response = await _httpClient.PostAsync(url, content);
 
                 var returnResponse = MapRateLimits(response);
@@ -59,9 +58,44 @@ namespace cloudlayerio_dotnet.requests
             }
         }
 
+        private HttpContent CreateHttpContent(T obj)
+        {
+            var json = ClSerializer.Serialize(obj);
+
+            // If the type contains a file we have to use a MultipartFormDataContent type and 
+            // build the content type differently.
+            if (obj is IFileOptions fileOptions)
+            {
+                var content = new MultipartFormDataContent();
+                var stringContent = new StringContent(json);
+                stringContent.Headers.Add("Content-Disposition", "form-data; name=\"json\"");
+                content.Add(stringContent);
+                
+                var fileName = Path.GetFileName(fileOptions.FilePath);
+                var streamContent = new StreamContent(_storage.GetFileStream(fileOptions.FilePath));
+                streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                streamContent.Headers.Add("Content-Disposition",
+                    $"form-data; name=\"file\"; filename=\"{fileName}\"");
+                content.Add(streamContent, "file", fileName!);
+
+                return content;
+            }
+
+            return new StringContent(json, null, "application/json");
+        }
+
         private static void CheckArguments(T obj)
         {
-            if (obj is IUrlOptions urlOpts && !urlOpts.Url.IsValidUrl())
+            if (obj is IUrlOptions urlFileOpts and IFileOptions fileOpts)
+            {
+                if (string.IsNullOrWhiteSpace(urlFileOpts.Url) && string.IsNullOrWhiteSpace(fileOpts.FilePath))
+                    throw new ArgumentException("A Url or FilePath must be specified, one or the other, but not both.");
+
+                if (!string.IsNullOrWhiteSpace(urlFileOpts.Url) && !string.IsNullOrWhiteSpace(fileOpts.FilePath))
+                    throw new ArgumentException("You must specify only one, either Url or Filepath but not both.");
+            }
+
+            if (obj is not IFileOptions && obj is IUrlOptions urlOpts && !urlOpts.Url.IsValidUrl())
                 throw new ArgumentException("Url is invalid");
 
             if (obj is IHtmlOptions htmlOpts && !htmlOpts.Html.IsValidBase64String())

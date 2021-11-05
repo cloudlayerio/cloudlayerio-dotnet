@@ -54,7 +54,8 @@ namespace cloudlayerio_dotnet.responses
             else
             {
                 await using var writer = File.AppendText(Path.Combine(dir, "error.log"));
-                await writer.WriteLineAsync($"{DateTime.Now.ToString(CultureInfo.CurrentCulture)}\t{filePath}\t{FailureResponse.Reason}\t{FailureResponse.Error}");
+                await writer.WriteLineAsync(
+                    $"{DateTime.Now.ToString(CultureInfo.CurrentCulture)}\t{filePath}\t{FailureResponse.Reason}\t{FailureResponse.Error}");
             }
         }
     }

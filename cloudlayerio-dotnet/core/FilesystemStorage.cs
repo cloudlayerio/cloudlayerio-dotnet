@@ -11,7 +11,7 @@ namespace cloudlayerio_dotnet.core
         /// <returns>Filestream for the filepath</returns>
         public Stream GetFileStream(string filePath)
         {
-            return new FileStream(filePath, FileMode.Create);
+            return new FileStream(filePath, FileMode.OpenOrCreate);
         }
     }
 }

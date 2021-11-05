@@ -16,7 +16,7 @@ namespace cloudlayerio_dotnet_examples
         private static CloudlayerioManager _manager;
         private static Dictionary<string, Func<Task>> _options;
 
-        private static string[] _websites =
+        private static readonly string[] Websites =
         {
             "https://en.wikipedia.org/wiki/Hypericum_calycinum", //1
             "https://www.bing.com/", //2
@@ -27,7 +27,7 @@ namespace cloudlayerio_dotnet_examples
             "https://www.bbc.com/", //7
             "https://microsoft.com", //8
             "https://mozilla.org", //9
-            "https://wordpress.org", //10
+            "https://wordpress.org" //10
         };
 
         private static async Task Main(string[] args)
@@ -42,13 +42,30 @@ namespace cloudlayerio_dotnet_examples
             _options = new Dictionary<string, Func<Task>>
             {
                 ["UrlToImage Single Website"] = GetGoogleImage,
-                ["UrlToImage Batch 10 in Parallel (High Resolution, Autoscroll)"] = () => Get10Websites(GetUrlToImageTasks()),
+                ["UrlToImage Batch 10 in Parallel (High Resolution, Autoscroll)"] =
+                    () => Get10Websites(GetUrlToImageTasks()),
                 ["UrlToPdf Single Website"] = GetGooglePdf,
-                ["UrlToPdf Batch 10 in Parallel (High Resolution, Autoscroll)"] = () => Get10Websites(GetUrlToPdfTasks()),
+                ["UrlToPdf Batch 10 in Parallel (High Resolution, Autoscroll)"] =
+                    () => Get10Websites(GetUrlToPdfTasks()),
+                ["DocxToPdf (test_data\\Example.docx)"] = GetConvertedDocxToPdfExample,
                 ["Exit"] = Exit
             };
 
             await GetSelection();
+        }
+
+        private static async Task GetConvertedDocxToPdfExample()
+        {
+            DisplayBeginText("Example.docx");
+            var rsp = await _manager.DocxToPdf(new DocxToPdf()
+            {
+                FilePath = Path.Combine(Environment.CurrentDirectory, "test_data", "Example.docx")
+            });
+
+            await rsp.SaveToFilesystem(Path.Combine("examples_out", "DocxToPdf", "Example.pdf"));
+            DisplayEndText(
+                "The pdf has been saved to your filesystem successfully! (Check the bin directory)");
+            DisplayContinueText();
         }
 
 
@@ -69,9 +86,7 @@ namespace cloudlayerio_dotnet_examples
                 Console.WriteLine("----------------------------------------");
 
                 for (var i = 0; i <= _options.Count - 1; i++)
-                {
                     Console.WriteLine($"{i + 1}. {_options.Keys.ElementAt(i)}");
-                }
 
                 Console.Write("Enter Selection: ");
                 var selectionNumber = Convert.ToInt32(Console.ReadKey(false).KeyChar.ToString());
@@ -108,7 +123,7 @@ namespace cloudlayerio_dotnet_examples
         private static Task[] GetUrlToImageTasks()
         {
             var tasks = new List<Task>();
-            foreach (var url in _websites)
+            foreach (var url in Websites)
             {
                 DisplayBeginText(url);
                 tasks.Add(ProcessWebsite(url, ".png", "UrlToImage10", _manager.UrlToImage(new UrlToImage
@@ -131,7 +146,7 @@ namespace cloudlayerio_dotnet_examples
         private static Task[] GetUrlToPdfTasks()
         {
             var tasks = new List<Task>();
-            foreach (var url in _websites)
+            foreach (var url in Websites)
             {
                 DisplayBeginText(url);
                 tasks.Add(ProcessWebsite(url, ".pdf", "UrlToPdf10", _manager.UrlToPdf(new UrlToPdf
@@ -145,7 +160,7 @@ namespace cloudlayerio_dotnet_examples
 
         private static async Task ProcessWebsite(string url, string ext, string dirName, Task<ReturnResponse> task)
         {
-            Stopwatch stopwatch = new Stopwatch();
+            var stopwatch = new Stopwatch();
             stopwatch.Start();
             var rsp = await task;
 
@@ -157,7 +172,7 @@ namespace cloudlayerio_dotnet_examples
 
             DisplayEndText($"{(rsp.IsOk ? "Completed" : "Failed")}: {url}->{filePath} ({stopwatch.Elapsed})");
             if (!rsp.IsOk)
-                Console.WriteLine(("For failures, check the error.log in root of output folder."));
+                Console.WriteLine("For failures, check the error.log in root of output folder.");
         }
 
         private static async Task GetGoogleImage()
@@ -195,7 +210,7 @@ namespace cloudlayerio_dotnet_examples
 
             await rsp.SaveToFilesystem(Path.Combine("examples_out", "UrlToPdf", "google.pdf"));
             DisplayEndText(
-                "The image google.pdf has been saved to your filesystem successfully! (Check the bin directory)");
+                "The pdf google.pdf has been saved to your filesystem successfully! (Check the bin directory)");
             DisplayContinueText();
         }
 

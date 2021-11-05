@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using cloudlayerio_dotnet.core;
-using cloudlayerio_dotnet.interfaces;
 using cloudlayerio_dotnet.requests;
 using cloudlayerio_dotnet_test.fakes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

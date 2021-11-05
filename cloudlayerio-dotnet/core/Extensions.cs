@@ -7,7 +7,7 @@ namespace cloudlayerio_dotnet.core
     public static class Extensions
     {
         /// <summary>
-        /// Check is a string is a Valid Url
+        ///     Check is a string is a Valid Url
         /// </summary>
         /// <param name="url"></param>
         /// <returns>true if valid, false if not.</returns>
@@ -17,7 +17,7 @@ namespace cloudlayerio_dotnet.core
         }
 
         /// <summary>
-        /// Check is a string is a valid Base64 string
+        ///     Check is a string is a valid Base64 string
         /// </summary>
         /// <param name="base64EncodedHtml">The base64 string to check.</param>
         /// <returns>true if valid, false if not.</returns>
@@ -26,9 +26,9 @@ namespace cloudlayerio_dotnet.core
             var buffer = new Span<byte>(new byte[base64EncodedHtml.Length]);
             return Convert.TryFromBase64String(base64EncodedHtml, buffer, out _);
         }
-        
+
         /// <summary>
-        /// Convenience method to convert the Html to a base64 string.
+        ///     Convenience method to convert the Html to a base64 string.
         /// </summary>
         /// <param name="htmlOptions">The IHtmlOptions object</param>
         /// <param name="rawHtml">Raw HTML (not base64 encoded)</param>

@@ -4,17 +4,21 @@ using cloudlayerio_dotnet.types;
 
 namespace cloudlayerio_dotnet.requests
 {
-    public class HtmlToImage :
-        IOptions, IHtmlOptions, IImageOptions, IPuppeteerOptions, IEndpointPath
+    public class HtmlToPdf :
+        IOptions, IHtmlOptions, IPdfOptions, IPuppeteerOptions, IEndpointPath
     {
-        [JsonIgnore] public string Path => "html/image";
+        [JsonIgnore] public string Path => "html/pdf";
         public string Html { get; set; }
-        public ImageType? ImageType { get; set; }
 
         public int? Timeout { get; set; }
         public int? Delay { get; set; }
         public string Filename { get; set; }
         public bool? Inline { get; set; }
+        public bool? PrintBackground { get; set; }
+        public PDFFormat? Format { get; set; }
+        public Margin Margin { get; set; }
+        public IHeaderFooterTemplate HeaderTemplate { get; set; }
+        public IHeaderFooterTemplate FooterTemplate { get; set; }
         public WaitUntilOptions? WaitUntil { get; set; }
         public IWaitForSelector WaitForSelector { get; set; }
         public bool? PreferCSSPageSize { get; set; }

@@ -2,7 +2,6 @@ using System;
 using System.Text;
 using cloudlayerio_dotnet.core;
 using cloudlayerio_dotnet.interfaces;
-using cloudlayerio_dotnet.requests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace cloudlayerio_dotnet_test.base_tests
@@ -21,7 +20,7 @@ namespace cloudlayerio_dotnet_test.base_tests
 
             Assert.AreEqual($"{{\"html\":\"{base64EncodedHtml}\"}}", json);
         }
-        
+
         [TestMethod]
         public void Html_SetHtmlCorrect()
         {
@@ -31,7 +30,7 @@ namespace cloudlayerio_dotnet_test.base_tests
 
             var options = new T();
             options.SetHtml(html);
-            
+
             Assert.AreEqual(base64EncodedHtml, options.Html);
         }
     }
