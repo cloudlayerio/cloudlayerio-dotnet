@@ -47,14 +47,14 @@ namespace cloudlayerio_dotnet_examples
                 ["UrlToPdf Single Website"] = GetGooglePdf,
                 ["UrlToPdf Batch 10 in Parallel (High Resolution, Autoscroll)"] =
                     () => Get10Websites(GetUrlToPdfTasks()),
-                ["DocxToPdf (test_data\\Example.docx)"] = GetConvertedDocxToPdfExample,
+                ["DocxToPdf (test_data\\Example.docx -> examples_out\\DocxToPdf\\Example.pdf)"] = GetFilesystemDocxToPdfExample,
                 ["Exit"] = Exit
             };
 
             await GetSelection();
         }
 
-        private static async Task GetConvertedDocxToPdfExample()
+        private static async Task GetFilesystemDocxToPdfExample()
         {
             DisplayBeginText("Example.docx");
             var rsp = await _manager.DocxToPdf(new DocxToPdf()
