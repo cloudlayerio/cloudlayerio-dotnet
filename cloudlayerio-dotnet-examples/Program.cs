@@ -42,9 +42,9 @@ namespace cloudlayerio_dotnet_examples
             _options = new Dictionary<string, Func<Task>>
             {
                 ["UrlToImage Single Website"] = GetGoogleImage,
-                ["UrlToImage Batch 10 in Parallel (High Resolution, Autoscroll)"] = () => Get20Websites(GetUrlToImageTasks()),
+                ["UrlToImage Batch 10 in Parallel (High Resolution, Autoscroll)"] = () => Get10Websites(GetUrlToImageTasks()),
                 ["UrlToPdf Single Website"] = GetGooglePdf,
-                ["UrlToPdf Batch 10 in Parallel (High Resolution, Autoscroll)"] = () => Get20Websites(GetUrlToPdfTasks()),
+                ["UrlToPdf Batch 10 in Parallel (High Resolution, Autoscroll)"] = () => Get10Websites(GetUrlToPdfTasks()),
                 ["Exit"] = Exit
             };
 
@@ -95,7 +95,7 @@ namespace cloudlayerio_dotnet_examples
             }
         }
 
-        private static Task Get20Websites(Task[] tasks)
+        private static Task Get10Websites(Task[] tasks)
         {
             Console.WriteLine("Batch process started");
             Task.WaitAll(tasks.ToArray());

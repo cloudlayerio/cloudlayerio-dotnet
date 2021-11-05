@@ -50,7 +50,7 @@ namespace cloudlayerio_dotnet.requests
 
                 if ((int) response.StatusCode >= 200 && (int) response.StatusCode <= 299)
                     return await CreateReturnResponseSuccess(returnResponse, response);
-                
+
                 return await CreateReturnResponseFailure(returnResponse, response);
             }
             catch (Exception e)
@@ -61,8 +61,13 @@ namespace cloudlayerio_dotnet.requests
 
         private static void CheckArguments(T obj)
         {
-            if (obj is IUrlOptions urlOpts && !IsValidUrl(urlOpts.Url))
+            if (obj is IUrlOptions urlOpts && !urlOpts.Url.IsValidUrl())
                 throw new ArgumentException("Url is invalid");
+
+            if (obj is IHtmlOptions htmlOpts && !htmlOpts.Html.IsValidBase64String())
+                throw new ArgumentException(
+                    "Html is not a valid base64 encoded string. Html must be encoded as a base64 string." +
+                    " Use the SetHtml helper method for convenience.");
         }
 
         private async Task<ReturnResponse> CreateReturnResponseFailure(ReturnResponse returnResponse,
@@ -122,11 +127,6 @@ namespace cloudlayerio_dotnet.requests
                 }
             };
             return returnResponse;
-        }
-
-        private static bool IsValidUrl(string url)
-        {
-            return Uri.TryCreate(url, UriKind.Absolute, out _);
         }
     }
 }

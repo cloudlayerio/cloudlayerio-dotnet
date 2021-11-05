@@ -1,5 +1,7 @@
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using cloudlayerio_dotnet.core;
 using cloudlayerio_dotnet.interfaces;
 using cloudlayerio_dotnet.requests;
 using cloudlayerio_dotnet.responses;
@@ -35,7 +37,7 @@ namespace cloudlayerio_dotnet
         }
 
         /// <summary>
-        ///     This endpoint allows you to convert any publicly accessible URL into an Image.
+        ///     This endpoint lets you to convert any publicly accessible URL into an Image.
         /// </summary>
         /// <param name="urlToImageParams">Url to Image parameters.</param>
         /// <returns>Returns a ReturnResponse type</returns>
@@ -45,13 +47,23 @@ namespace cloudlayerio_dotnet
         }
 
         /// <summary>
-        ///     This endpoint allows you to convert any publicly accessible URL into a PDF.
+        ///     This endpoint lets you to convert any publicly accessible URL into a PDF.
         /// </summary>
         /// <param name="urlToPdfParams">Url to PDF parameters.</param>
         /// <returns>Returns a ReturnResponse type</returns>
         public Task<ReturnResponse> UrlToPdf(UrlToPdf urlToPdfParams)
         {
             return SendRequest(urlToPdfParams);
+        }
+
+        /// <summary>
+        ///     This endpoints lets you to convert any html to an image.
+        /// </summary>
+        /// <param name="htmlToImage">Html to Image parameters.</param>
+        /// <returns>Returns a ReturnResponse type</returns>
+        public Task<ReturnResponse> HtmlToImage(HtmlToImage htmlToImage)
+        {
+            return SendRequest(htmlToImage);
         }
 
         private Task<ReturnResponse> SendRequest<T>(T obj) where T : class, IEndpointPath
