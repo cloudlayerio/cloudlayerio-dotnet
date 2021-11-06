@@ -64,7 +64,7 @@ namespace cloudlayerio_dotnet.requests
 
             // If the type contains a file we have to use a MultipartFormDataContent type and 
             // build the content type differently.
-            if (obj is IFileOptions fileOptions)
+            if (obj is IFileOptions fileOptions && !string.IsNullOrWhiteSpace(fileOptions.FilePath))
             {
                 var content = new MultipartFormDataContent();
                 var stringContent = new StringContent(json);
