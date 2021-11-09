@@ -19,7 +19,7 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Publish cloudlayerio-dotnet
-      uses: brandedoutcast/publish-nuget@v2.5.2
+      uses: rohith/publish-nuget@v2
       with:
           PROJECT_FILE_PATH: cloudlayerio-dotnet/cloudlayerio-dotnet.csproj
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
