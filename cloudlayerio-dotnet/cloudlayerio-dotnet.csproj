@@ -11,18 +11,5 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageVersion>1.0.0</PackageVersion>
     </PropertyGroup>
-
-    <ItemGroup>
-      <None Include=".github\publish.yml" />
-      <None Remove=".github\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove=".github\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Remove=".github\**" />
-    </ItemGroup>
-
+    
 </Project>
