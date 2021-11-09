@@ -9,10 +9,21 @@
         <RepositoryUrl>https://github.com/cloudlayerio/</RepositoryUrl>
         <PackageProjectUrl>https://github.com/cloudlayerio/</PackageProjectUrl>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <Version>1.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
       <None Include=".github\publish.yml" />
+      <None Remove=".github\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove=".github\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove=".github\**" />
     </ItemGroup>
 
 </Project>
