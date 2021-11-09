@@ -3,6 +3,16 @@
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
         <RootNamespace>cloudlayerio_dotnet</RootNamespace>
+        <Authors>cloudlayer.io</Authors>
+        <Description>cloudlayerio (https://cloudlayer.io) - API Library for easy access to our REST based API services using the c# language. Take screenshots of webpages, convert HTML to PDFs or Images, etc.</Description>
+        <PackageTags>api, screenshot, converter, sdk, pdf-converter pdf-generation, webpage-screenshot, pdf-generator-api, webpage-capture</PackageTags>
+        <RepositoryUrl>https://github.com/cloudlayerio/</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/cloudlayerio/</PackageProjectUrl>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
+
+    <ItemGroup>
+      <None Include=".github\publish.yml" />
+    </ItemGroup>
 
 </Project>
