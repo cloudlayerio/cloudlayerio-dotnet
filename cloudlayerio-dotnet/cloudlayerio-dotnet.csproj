@@ -9,7 +9,7 @@
         <RepositoryUrl>https://github.com/cloudlayerio/</RepositoryUrl>
         <PackageProjectUrl>https://github.com/cloudlayerio/</PackageProjectUrl>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>1.0.0</PackageVersion>
+        <PackageVersion>1.0.1</PackageVersion>
     </PropertyGroup>
     
 </Project>

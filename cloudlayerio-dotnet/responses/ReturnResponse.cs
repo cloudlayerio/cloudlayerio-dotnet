@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using cloudlayerio_dotnet.core;
 
@@ -9,10 +12,17 @@ namespace cloudlayerio_dotnet.responses
     public class ReturnResponse
     {
         private readonly IStorage _storage;
+        private static readonly ConcurrentQueue<Tuple<string, string>> Logs = new();
+
+        private readonly CancellationTokenSource _source = new();
+        private readonly CancellationToken _token;
 
         public ReturnResponse(IStorage storage)
         {
             _storage = storage;
+
+            _token = _source.Token;
+            Task.Run(WriteToFile, _token);
         }
 
         /// <summary>
@@ -53,9 +63,36 @@ namespace cloudlayerio_dotnet.responses
             }
             else
             {
-                await using var writer = File.AppendText(Path.Combine(dir, "error.log"));
-                await writer.WriteLineAsync(
-                    $"{DateTime.Now.ToString(CultureInfo.CurrentCulture)}\t{filePath}\t{FailureResponse.Reason}\t{FailureResponse.Error}");
+                Logs.Enqueue(new Tuple<string, string>(Path.Combine(dir, "error.log"),
+                    $"{DateTime.Now.ToString(CultureInfo.CurrentCulture)}\t{filePath}\t{FailureResponse.Reason}\t{FailureResponse.Error}"));
+            }
+        }
+
+        private async void WriteToFile()
+        {
+            try
+            {
+                while (true)
+                {
+                    if (_token.IsCancellationRequested)
+                    {
+                        return;
+                    }
+
+                    while (Logs.TryDequeue(out var log))
+                    {
+                        await using var fs = new FileStream(log.Item1, FileMode.Append, FileAccess.Write,
+                            FileShare.Read);
+                        await using var sw = new StreamWriter(fs);
+                        await sw.WriteLineAsync(log.Item2);
+                    }
+
+                    Thread.Sleep(100);
+                }
+            }
+            catch
+            {
+                // ignored
             }
         }
     }

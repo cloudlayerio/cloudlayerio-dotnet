@@ -54,7 +54,7 @@ namespace cloudlayerio_dotnet.requests
             }
             catch (Exception e)
             {
-                return CreateReturnResponse(e);
+                return CreateReturnResponse(e.Message);
             }
         }
 
@@ -108,10 +108,10 @@ namespace cloudlayerio_dotnet.requests
             HttpResponseMessage response)
         {
             returnResponse.IsOk = false;
+            var errorJson = await response.Content.ReadAsStringAsync();
 
             try
             {
-                var errorJson = await response.Content.ReadAsStringAsync();
                 returnResponse.FailureResponse =
                     ClSerializer.Deserialize<FailureResponse>(errorJson);
 
@@ -119,11 +119,11 @@ namespace cloudlayerio_dotnet.requests
             }
             catch (Exception e)
             {
-                return CreateReturnResponse(e);
+                return CreateReturnResponse(errorJson);
             }
         }
 
-        private ReturnResponse CreateReturnResponse(Exception e)
+        private ReturnResponse CreateReturnResponse(string errorMessage)
         {
             return new ReturnResponse(_storage)
             {
@@ -131,7 +131,7 @@ namespace cloudlayerio_dotnet.requests
                 FailureResponse = new FailureResponse
                 {
                     Allowed = false,
-                    Error = e.Message,
+                    Error = errorMessage,
                     Reason = "Unknown error occurred. Please check Error property for details."
                 }
             };

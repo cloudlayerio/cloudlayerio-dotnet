@@ -47,7 +47,8 @@ namespace cloudlayerio_dotnet_examples
                 ["UrlToPdf Single Website"] = GetGooglePdf,
                 ["UrlToPdf Batch 10 in Parallel (High Resolution, Autoscroll)"] =
                     () => Get10Websites(GetUrlToPdfTasks()),
-                ["DocxToPdf (test_data\\Example.docx -> examples_out\\DocxToPdf\\Example.pdf)"] = GetFilesystemDocxToPdfExample,
+                ["DocxToPdf (test_data\\Example.docx -> examples_out\\DocxToPdf\\Example.pdf)"] =
+                    GetFilesystemDocxToPdfExample,
                 ["Exit"] = Exit
             };
 
@@ -123,6 +124,7 @@ namespace cloudlayerio_dotnet_examples
         private static Task[] GetUrlToImageTasks()
         {
             var tasks = new List<Task>();
+
             foreach (var url in Websites)
             {
                 DisplayBeginText(url);
@@ -136,7 +138,7 @@ namespace cloudlayerio_dotnet_examples
                         Width = 1920,
                         Height = 1080,
                         DeviceScaleFactor = 2
-                    }
+                    },
                 })));
             }
 
