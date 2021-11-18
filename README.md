@@ -9,7 +9,6 @@
     -   [JetBrains Rider](#jetbrains-rider)
     -   [Other](#other)
 -   [Usage](#usage)
--   [Examples](#examples)
 
 <!-- ABOUT THE PROJECT -->
 
