@@ -117,7 +117,7 @@ var rsp = new manager.UrlToPdf(new UrlToPdf {
     }
 });
 ```
-That's just an example of adding a bunch of options.  For more information on what each do you can take a look at our [docs](https://cloudlayer.io/docs) or look at the source code as it's heavily commented on what each property does and how to use it.  It will also show up as intellisense info as you use the properties.
+That's just an example of adding a bunch of options.  For more information on what each option does you can take a look at our [docs](https://cloudlayer.io/docs) or look at the source code as it's heavily commented on what each property does and how to use it.  It will also show up as intellisense info as you use the properties.
 
 ## More information
 
