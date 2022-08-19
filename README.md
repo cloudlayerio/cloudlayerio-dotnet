@@ -121,5 +121,5 @@ That's just an example of adding a bunch of options.  For more information on wh
 
 ## More information
 
-Check the [Tutorials](https://cloudlayer.io/docs) page to get started.
+Check the [Tutorials](https://docs.cloudlayer.io) page to get started.
 
