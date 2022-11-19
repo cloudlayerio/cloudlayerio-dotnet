@@ -14,7 +14,7 @@ namespace cloudlayerio_dotnet.core
 
         public override void Write(Utf8JsonWriter writer, ImageType value, JsonSerializerOptions options)
         {
-            writer.WriteStringValue(value.ToString().ToUpper());
+            writer.WriteStringValue(value.ToString().ToLower());
         }
     }
 }

@@ -29,7 +29,7 @@ namespace cloudlayerio_dotnet_test.requests_tests
         [TestInitialize]
         public void Setup()
         {
-            _fakeHttpMessageHandler = new Mock<FakeHttpMessageHandler> {CallBase = true};
+            _fakeHttpMessageHandler = new Mock<FakeHttpMessageHandler> { CallBase = true };
             _httpClient = new HttpClient(_fakeHttpMessageHandler.Object);
         }
 
@@ -93,7 +93,7 @@ namespace cloudlayerio_dotnet_test.requests_tests
         public async Task SaveToFileSystem_DataFlowCheck()
         {
             var fakeFileStream = new FakeFileStorage();
-            var reqBuilder = new RequestBuilder<UrlToImage>(_httpClient, "", fakeFileStream);
+            var reqBuilder = new RequestBuilder<UrlToImage>(_httpClient, "", fakeFileStream, ApiEndpointVersion.v2);
 
             var urlToImageParams = new UrlToImage
             {
@@ -110,7 +110,7 @@ namespace cloudlayerio_dotnet_test.requests_tests
 
             await rsp.SaveToFilesystem("\\test\test.txt");
 
-            var fileStream = (MemoryStream) fakeFileStream.GetFileStream("");
+            var fileStream = (MemoryStream)fakeFileStream.GetFileStream("");
 
             var fileBytes = fileStream.ToArray();
             var decodedText = Encoding.Default.GetString(fileBytes);
@@ -122,7 +122,8 @@ namespace cloudlayerio_dotnet_test.requests_tests
         {
             var fakeFileStream = new FakeFileStorage();
             var testKey = "test-key-1";
-            var reqBuilder = new RequestBuilder<UrlToImage>(_httpClient, testKey, fakeFileStream);
+            var reqBuilder =
+                new RequestBuilder<UrlToImage>(_httpClient, testKey, fakeFileStream, ApiEndpointVersion.v2);
 
             var urlToImageParams = new UrlToImage
             {
@@ -144,7 +145,8 @@ namespace cloudlayerio_dotnet_test.requests_tests
             var fakeFileStream = new FakeFileStorage();
             var testKey = "test-key-1";
 
-            var reqBuilder = new RequestBuilder<UrlToImage>(_httpClient, testKey, fakeFileStream);
+            var reqBuilder =
+                new RequestBuilder<UrlToImage>(_httpClient, testKey, fakeFileStream, ApiEndpointVersion.v2);
 
             var urlToImageParams = new UrlToImage
             {
@@ -165,7 +167,7 @@ namespace cloudlayerio_dotnet_test.requests_tests
             var fakeFileStream = new FakeFileStorage();
             var testKey = "test-key-1";
 
-            var reqBuilder = new RequestBuilder<UrlToPdf>(_httpClient, testKey, fakeFileStream);
+            var reqBuilder = new RequestBuilder<UrlToPdf>(_httpClient, testKey, fakeFileStream, ApiEndpointVersion.v2);
 
             var urlToPdfParams = new UrlToPdf
             {
@@ -186,7 +188,8 @@ namespace cloudlayerio_dotnet_test.requests_tests
             var fakeFileStream = new FakeFileStorage();
             var testKey = "test-key-1";
 
-            var reqBuilder = new RequestBuilder<HtmlToImage>(_httpClient, testKey, fakeFileStream);
+            var reqBuilder =
+                new RequestBuilder<HtmlToImage>(_httpClient, testKey, fakeFileStream, ApiEndpointVersion.v2);
 
             var htmlToImageParams = new HtmlToImage();
             htmlToImageParams.SetHtml("<h1>This is a test</h1>");

@@ -10,7 +10,7 @@ namespace cloudlayerio_dotnet.core
         {
             var json = JsonSerializer.Serialize(obj, new JsonSerializerOptions
             {
-                IgnoreNullValues = true,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 Converters =
                 {

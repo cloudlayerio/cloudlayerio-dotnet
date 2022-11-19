@@ -11,17 +11,20 @@ namespace cloudlayerio_dotnet.requests
 {
     public class RequestBuilder<T> where T : class, IEndpointPath
     {
-        private const string ApiEndpoint = "https://api.cloudlayer.io/v1/";
+        private readonly ApiEndpointVersion _apiEndpointVersion;
+        private const string ApiEndpoint = $"https://api.cloudlayer.io";
         private readonly HttpClient _httpClient;
         private readonly IStorage _storage;
 
         public RequestBuilder(HttpClient httpClient, string apiKey)
-            : this(httpClient, apiKey, new FilesystemStorage())
+            : this(httpClient, apiKey, new FilesystemStorage(), ApiEndpointVersion.v2)
         {
         }
 
-        public RequestBuilder(HttpClient httpClient, string apiKey, IStorage storage)
+        public RequestBuilder(HttpClient httpClient, string apiKey, IStorage storage,
+            ApiEndpointVersion apiEndpointVersion)
         {
+            _apiEndpointVersion = apiEndpointVersion;
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             _storage = storage;
 
@@ -38,16 +41,19 @@ namespace cloudlayerio_dotnet.requests
         {
             CheckArguments(obj);
 
-            var url = new Uri(new Uri(ApiEndpoint), obj.Path).ToString();
+            // var apiUrl = new Uri(ApiEndpoint);
+            // var versionUrl = new Uri(apiUrl, _apiEndpointVersion.ToString());
+            // var fullUrl = 
 
+            var fullUrl = $"{ApiEndpoint}/{_apiEndpointVersion.ToString()}/{obj.Path}";
             try
             {
                 using var content = CreateHttpContent(obj);
-                var response = await _httpClient.PostAsync(url, content);
+                var response = await _httpClient.PostAsync(fullUrl, content);
 
                 var returnResponse = MapRateLimits(response);
 
-                if ((int) response.StatusCode >= 200 && (int) response.StatusCode <= 299)
+                if ((int)response.StatusCode >= 200 && (int)response.StatusCode <= 299)
                     return await CreateReturnResponseSuccess(returnResponse, response);
 
                 return await CreateReturnResponseFailure(returnResponse, response);
@@ -70,7 +76,7 @@ namespace cloudlayerio_dotnet.requests
                 var stringContent = new StringContent(json);
                 stringContent.Headers.Add("Content-Disposition", "form-data; name=\"json\"");
                 content.Add(stringContent);
-                
+
                 var fileName = Path.GetFileName(fileOptions.FilePath);
                 var streamContent = new StreamContent(_storage.GetFileStream(fileOptions.FilePath));
                 streamContent.Headers.Add("Content-Type", "application/octet-stream");
@@ -117,7 +123,7 @@ namespace cloudlayerio_dotnet.requests
 
                 return returnResponse;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return CreateReturnResponse(errorJson);
             }
@@ -142,6 +148,7 @@ namespace cloudlayerio_dotnet.requests
         {
             returnResponse.Stream = await response.Content.ReadAsStreamAsync();
             returnResponse.IsOk = true;
+            returnResponse.ContentType = response.Content.Headers.ContentType?.MediaType;
             return returnResponse;
         }
 

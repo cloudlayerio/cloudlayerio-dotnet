@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using cloudlayerio_dotnet.core;
@@ -13,6 +14,7 @@ namespace cloudlayerio_dotnet.responses
     {
         private readonly IStorage _storage;
         private static readonly ConcurrentQueue<Tuple<string, string>> Logs = new();
+        
 
         private readonly CancellationTokenSource _source = new();
         private readonly CancellationToken _token;
@@ -35,6 +37,8 @@ namespace cloudlayerio_dotnet.responses
         ///     Check FailureResponse if there was a failure for more information about the failure.
         /// </summary>
         public bool IsOk { get; internal set; }
+        
+        public string ContentType { get; internal set; }
 
         /// <summary>
         ///     Contains information about the current RateLimits for your request.
@@ -55,6 +59,11 @@ namespace cloudlayerio_dotnet.responses
         {
             var dir = Path.GetDirectoryName(filePath);
             Directory.CreateDirectory(dir!);
+
+            if (ContentType == "application/json")
+            {
+                filePath = Path.ChangeExtension(filePath, ".json");
+            }
 
             if (Stream?.Length > 0 && IsOk)
             {

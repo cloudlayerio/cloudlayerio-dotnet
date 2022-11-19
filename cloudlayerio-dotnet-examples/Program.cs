@@ -21,19 +21,19 @@ namespace cloudlayerio_dotnet_examples
             "https://en.wikipedia.org/wiki/Hypericum_calycinum", //1
             "https://www.bing.com/", //2
             "https://www.msn.com/en-us", //3
-            "https://apple.com", //4
-            "https://reddit.com", //5
-            "https://github.com", //6
-            "https://www.bbc.com/", //7
-            "https://microsoft.com", //8
-            "https://mozilla.org", //9
-            "https://wordpress.org" //10
+            "https://reddit.com", //4
+            "https://github.com", //5
+            "https://www.bbc.com/", //6
+            "https://microsoft.com", //7
+            "https://mozilla.org", //8
+            "https://wordpress.org" //9
         };
 
         private static async Task Main(string[] args)
         {
             Console.WriteLine(
-                "This is an example application demonstrating the very basic capabilities of cloudlayer.io");
+                "This is an example application demonstrating the very basic capabilities of cloudlayer.io. Before proceeding, open your dashboard to observe the progress:");
+            Console.WriteLine("https://app.cloudlayer.io/jobs");
             Console.WriteLine();
 
 
@@ -65,7 +65,7 @@ namespace cloudlayerio_dotnet_examples
 
             await rsp.SaveToFilesystem(Path.Combine("examples_out", "DocxToPdf", "Example.pdf"));
             DisplayEndText(
-                "The pdf has been saved to your filesystem successfully! (Check the bin directory)");
+                "The response has been saved to your filesystem successfully! (Check the bin directory)");
             DisplayContinueText();
         }
 
@@ -196,7 +196,7 @@ namespace cloudlayerio_dotnet_examples
 
             await rsp.SaveToFilesystem(Path.Combine("examples_out", "UrlToImage", "google.png"));
             DisplayEndText(
-                "The image google.png has been saved to your filesystem successfully! (Check the bin directory)");
+                "The response has been saved to your filesystem successfully! (Check the bin directory)");
             DisplayContinueText();
         }
 
@@ -212,7 +212,7 @@ namespace cloudlayerio_dotnet_examples
 
             await rsp.SaveToFilesystem(Path.Combine("examples_out", "UrlToPdf", "google.pdf"));
             DisplayEndText(
-                "The pdf google.pdf has been saved to your filesystem successfully! (Check the bin directory)");
+                "The response has been saved to your filesystem successfully! (Check the bin directory)");
             DisplayContinueText();
         }
 

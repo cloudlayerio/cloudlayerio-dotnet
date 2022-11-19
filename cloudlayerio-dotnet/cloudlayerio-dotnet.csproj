@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <RootNamespace>cloudlayerio_dotnet</RootNamespace>
         <Authors>cloudlayer.io</Authors>
         <Description>cloudlayerio (https://cloudlayer.io) - API Library for easy access to our REST based API services using the c# language. Take screenshots of webpages, convert HTML to PDFs or Images, etc.</Description>
@@ -9,7 +9,7 @@
         <RepositoryUrl>https://github.com/cloudlayerio/</RepositoryUrl>
         <PackageProjectUrl>https://github.com/cloudlayerio/</PackageProjectUrl>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>1.0.1</PackageVersion>
+        <PackageVersion>2.0.0</PackageVersion>
     </PropertyGroup>
     
 </Project>
