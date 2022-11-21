@@ -10,11 +10,11 @@ using cloudlayerio_dotnet.core;
 
 namespace cloudlayerio_dotnet.responses
 {
-    public class ReturnResponse
+    public class ReturnResponse<T>
     {
         private readonly IStorage _storage;
         private static readonly ConcurrentQueue<Tuple<string, string>> Logs = new();
-        
+
 
         private readonly CancellationTokenSource _source = new();
         private readonly CancellationToken _token;
@@ -37,13 +37,26 @@ namespace cloudlayerio_dotnet.responses
         ///     Check FailureResponse if there was a failure for more information about the failure.
         /// </summary>
         public bool IsOk { get; internal set; }
-        
+
         public string ContentType { get; internal set; }
 
         /// <summary>
         ///     Contains information about the current RateLimits for your request.
         /// </summary>
         public RateLimits RateLimits { get; set; }
+
+        public Response<T> Response
+        {
+            get
+            {
+                if (!IsOk || ContentType != "application/json")
+                    return null;
+
+                var reader = new StreamReader(Stream);
+                var json = reader.ReadToEnd();
+                return ClSerializer.Deserialize<Response<T>>(json);
+            }
+        }
 
         /// <summary>
         ///     Contains information about the failure if there was one.

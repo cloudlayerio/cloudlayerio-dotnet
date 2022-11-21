@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using cloudlayerio_dotnet.core;
 using cloudlayerio_dotnet.interfaces;
@@ -37,7 +38,7 @@ namespace cloudlayerio_dotnet.requests
                 _httpClient.DefaultRequestHeaders.Add("User-Agent", "cloudlayerio-dotnet SDK");
         }
 
-        public async Task<ReturnResponse> SendRequest(T obj)
+        public async Task<ReturnResponse<T>> SendRequest(T obj)
         {
             CheckArguments(obj);
 
@@ -110,7 +111,7 @@ namespace cloudlayerio_dotnet.requests
                     " Use the SetHtml helper method for convenience.");
         }
 
-        private async Task<ReturnResponse> CreateReturnResponseFailure(ReturnResponse returnResponse,
+        private async Task<ReturnResponse<T>> CreateReturnResponseFailure(ReturnResponse<T> returnResponse,
             HttpResponseMessage response)
         {
             returnResponse.IsOk = false;
@@ -129,9 +130,9 @@ namespace cloudlayerio_dotnet.requests
             }
         }
 
-        private ReturnResponse CreateReturnResponse(string errorMessage)
+        private ReturnResponse<T> CreateReturnResponse(string errorMessage)
         {
-            return new ReturnResponse(_storage)
+            return new ReturnResponse<T>(_storage)
             {
                 IsOk = false,
                 FailureResponse = new FailureResponse
@@ -143,28 +144,29 @@ namespace cloudlayerio_dotnet.requests
             };
         }
 
-        private static async Task<ReturnResponse> CreateReturnResponseSuccess(ReturnResponse returnResponse,
+        private static async Task<ReturnResponse<T>> CreateReturnResponseSuccess(ReturnResponse<T> returnResponse,
             HttpResponseMessage response)
         {
             returnResponse.Stream = await response.Content.ReadAsStreamAsync();
             returnResponse.IsOk = true;
             returnResponse.ContentType = response.Content.Headers.ContentType?.MediaType;
+            
             return returnResponse;
         }
 
-        private ReturnResponse MapRateLimits(HttpResponseMessage response)
+        private ReturnResponse<T> MapRateLimits(HttpResponseMessage response)
         {
             response.Headers.TryGetValues("X-RateLimit-Limit", out var limitHeader);
             response.Headers.TryGetValues("X-RateLimit-Remaining", out var remainingHeader);
             response.Headers.TryGetValues("X-RateLimit-Reset", out var resetHeader);
 
-            var returnResponse = new ReturnResponse(_storage)
+            var returnResponse = new ReturnResponse<T>(_storage)
             {
                 RateLimits = new RateLimits
                 {
                     Limit = Convert.ToInt32(limitHeader?.FirstOrDefault()),
                     Remaining = Convert.ToInt32(remainingHeader?.FirstOrDefault()),
-                    Reset = Convert.ToInt64(resetHeader?.FirstOrDefault())
+                    Reset = Convert.ToInt32(resetHeader?.FirstOrDefault())
                 }
             };
             return returnResponse;

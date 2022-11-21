@@ -39,7 +39,7 @@ namespace cloudlayerio_dotnet
         /// </summary>
         /// <param name="urlToImageParams">Url to Image parameters.</param>
         /// <returns>Returns a ReturnResponse type</returns>
-        public Task<ReturnResponse> UrlToImage(UrlToImage urlToImageParams)
+        public Task<ReturnResponse<UrlToImage>> UrlToImage(UrlToImage urlToImageParams)
         {
             return SendRequest(urlToImageParams);
         }
@@ -49,7 +49,7 @@ namespace cloudlayerio_dotnet
         /// </summary>
         /// <param name="urlToPdfParams">Url to PDF parameters.</param>
         /// <returns>Returns a ReturnResponse type</returns>
-        public Task<ReturnResponse> UrlToPdf(UrlToPdf urlToPdfParams)
+        public Task<ReturnResponse<UrlToPdf>> UrlToPdf(UrlToPdf urlToPdfParams)
         {
             return SendRequest(urlToPdfParams);
         }
@@ -59,7 +59,7 @@ namespace cloudlayerio_dotnet
         /// </summary>
         /// <param name="htmlToImage">Html to Image parameters.</param>
         /// <returns>Returns a ReturnResponse type</returns>
-        public Task<ReturnResponse> HtmlToImage(HtmlToImage htmlToImage)
+        public Task<ReturnResponse<HtmlToImage>> HtmlToImage(HtmlToImage htmlToImage)
         {
             return SendRequest(htmlToImage);
         }
@@ -69,7 +69,7 @@ namespace cloudlayerio_dotnet
         /// </summary>
         /// <param name="htmlToPdf">Html to Pdf parameters.</param>
         /// <returns>Returns a ReturnResponse type</returns>
-        public Task<ReturnResponse> HtmlToPdf(HtmlToPdf htmlToPdf)
+        public Task<ReturnResponse<HtmlToPdf>> HtmlToPdf(HtmlToPdf htmlToPdf)
         {
             return SendRequest(htmlToPdf);
         }
@@ -79,12 +79,12 @@ namespace cloudlayerio_dotnet
         /// </summary>
         /// <param name="docxToPdf">Docx to Pdf parameters.</param>
         /// <returns>Returns a ReturnResponse type</returns>
-        public Task<ReturnResponse> DocxToPdf(DocxToPdf docxToPdf)
+        public Task<ReturnResponse<DocxToPdf>> DocxToPdf(DocxToPdf docxToPdf)
         {
             return SendRequest(docxToPdf);
         }
 
-        private Task<ReturnResponse> SendRequest<T>(T obj) where T : class, IEndpointPath
+        private Task<ReturnResponse<T>> SendRequest<T>(T obj) where T : class, IEndpointPath
         {
             var reqBuilder = new RequestBuilder<T>(_httpClient, _apiKey);
             return reqBuilder.SendRequest(obj);

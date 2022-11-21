@@ -14,6 +14,8 @@ namespace cloudlayerio_dotnet.requests
         public int? Delay { get; set; }
         public string Filename { get; set; }
         public bool? Inline { get; set; }
+        
+        public bool? Async { get; set; }
         public bool? PrintBackground { get; set; }
         public PDFFormat? Format { get; set; }
         public Margin Margin { get; set; }

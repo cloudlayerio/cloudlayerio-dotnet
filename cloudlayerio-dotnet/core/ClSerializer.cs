@@ -28,6 +28,13 @@ namespace cloudlayerio_dotnet.core
         {
             var obj = JsonSerializer.Deserialize<T>(json, new JsonSerializerOptions
             {
+                Converters =
+                {
+                    new JsonStringEnumConverter(JsonNamingPolicy.CamelCase),
+                    new ImageTypeEnumConverter(),
+                    new InterfaceConverter<IViewport>(),
+                    new DateTimeConverter()
+                },
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             });
 

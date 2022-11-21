@@ -14,6 +14,8 @@ namespace cloudlayerio_dotnet.requests
         public int? Delay { get; set; }
         public string Filename { get; set; }
         public bool? Inline { get; set; }
+        
+        public bool? Async { get; set; }
         public WaitUntilOptions? WaitUntil { get; set; }
         public IWaitForSelector WaitForSelector { get; set; }
         public bool? PreferCSSPageSize { get; set; }
@@ -24,6 +26,7 @@ namespace cloudlayerio_dotnet.requests
         public IPageRanges PageRanges { get; set; }
         public bool? AutoScroll { get; set; }
         public IViewport ViewPort { get; set; }
+        
         public string TimeZone { get; set; }
         public string Url { get; set; }
     }

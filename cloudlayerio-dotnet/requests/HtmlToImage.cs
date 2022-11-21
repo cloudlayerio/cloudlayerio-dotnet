@@ -15,6 +15,8 @@ namespace cloudlayerio_dotnet.requests
         public int? Delay { get; set; }
         public string Filename { get; set; }
         public bool? Inline { get; set; }
+        
+        public bool? Async { get; set; }
         public WaitUntilOptions? WaitUntil { get; set; }
         public IWaitForSelector WaitForSelector { get; set; }
         public bool? PreferCSSPageSize { get; set; }

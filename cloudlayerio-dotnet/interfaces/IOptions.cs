@@ -29,5 +29,13 @@
         ///     set the filename value for the attachment.
         /// </summary>
         bool? Inline { get; set; }
+        
+        /// <summary>
+        ///     If set to true (default), sets the endpoint to be an asynchronous call so that the response returns
+        ///     back immediately and does not wait for the job to complete. To check the status of the job
+        ///     you will need to check the job:id or use the callback functionality. If set to false, the
+        ///     response will not be returned until the job is completed.
+        /// </summary>
+        bool? Async { get; set; }
     }
 }

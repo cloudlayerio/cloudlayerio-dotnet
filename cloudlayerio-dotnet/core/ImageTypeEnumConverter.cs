@@ -9,7 +9,10 @@ namespace cloudlayerio_dotnet.core
     {
         public override ImageType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            throw new NotImplementedException();
+            if (!Enum.TryParse(reader.GetString(), true, out ImageType result))
+                throw new Exception("Could not read value");
+            
+            return result;
         }
 
         public override void Write(Utf8JsonWriter writer, ImageType value, JsonSerializerOptions options)
