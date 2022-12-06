@@ -14,7 +14,7 @@
 
 ## About The Project
 
-`cloudlayerio-dotnet` is a **.NET 5** library [cloudlayer.io](https://cloudlayer.io). It is used to automate and manipulate content such as PDF files, and images.  Using this library and cloudlayer.io service, you can convert HTML to PDF, HTML to Images, URLs to PDFs, URLs to Images, and more.
+`cloudlayerio-dotnet` is a **.NET 6** library [cloudlayer.io](https://cloudlayer.io). It is used to automate and manipulate content such as PDF files, and images.  Using this library and cloudlayer.io service, you can convert HTML to PDF, HTML to Images, URLs to PDFs, URLs to Images, and more.
 ## Installation
 
 The `cloudlayerio-dotnet` library is bundled in a NuGet Package.
@@ -63,7 +63,7 @@ var rsp = await manager.UrlToPdf(new UrlToPdf
 
 The `rsp` is the [ReturnResponse](https://github.com/cloudlayerio/cloudlayerio-dotnet/blob/main/cloudlayerio-dotnet/responses/ReturnResponse.cs) type and will contain the `Stream` as well as several other properties, along with a helper method `SaveToFilesystem`. This method is a convenience method to make it easier to save the results of the stream to local storage.
 
-As of v2, the PDF file is not returned as part of the response. The SDK now returns a JSON response and the SaveToFilesystem Helper will only save the json response to the filesystem now. In addition, the response now contains the entire response object which is populated witht the response data in a fully typed manner.
+As of v2, the PDF file is not returned as part of the response. The SDK now returns a JSON response and the SaveToFilesystem Helper will only save the json response to the filesystem now. In addition, the response now contains the entire response object which is populated with the response data in a fully typed manner.
 
 If you are using `async: false` it will return back the entire populated response, including the `assetUrl` which will contain the URL to your asset.
 
