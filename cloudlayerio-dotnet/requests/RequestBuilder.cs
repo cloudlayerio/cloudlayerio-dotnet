@@ -42,10 +42,6 @@ namespace cloudlayerio_dotnet.requests
         {
             CheckArguments(obj);
 
-            // var apiUrl = new Uri(ApiEndpoint);
-            // var versionUrl = new Uri(apiUrl, _apiEndpointVersion.ToString());
-            // var fullUrl = 
-
             var fullUrl = $"{ApiEndpoint}/{_apiEndpointVersion.ToString()}/{obj.Path}";
             try
             {
@@ -106,9 +102,7 @@ namespace cloudlayerio_dotnet.requests
                 throw new ArgumentException("Url is invalid");
 
             if (obj is IHtmlOptions htmlOpts && !htmlOpts.Html.IsValidBase64String())
-                throw new ArgumentException(
-                    "Html is not a valid base64 encoded string. Html must be encoded as a base64 string." +
-                    " Use the SetHtml helper method for convenience.");
+               htmlOpts.SetHtml(htmlOpts.Html);
         }
 
         private async Task<ReturnResponse<T>> CreateReturnResponseFailure(ReturnResponse<T> returnResponse,
@@ -150,9 +144,12 @@ namespace cloudlayerio_dotnet.requests
             returnResponse.Stream = await response.Content.ReadAsStreamAsync();
             returnResponse.IsOk = true;
             returnResponse.ContentType = response.Content.Headers.ContentType?.MediaType;
+            returnResponse.SetResponse();            
             
             return returnResponse;
         }
+
+
 
         private ReturnResponse<T> MapRateLimits(HttpResponseMessage response)
         {

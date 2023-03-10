@@ -22,7 +22,7 @@ namespace cloudlayerio_dotnet_test.base_tests
         }
 
         [TestMethod]
-        public void Html_SetHtmlCorrect()
+        public void Html_SetHtml()
         {
             const string html = "<h1>This is some test html!</h1>";
             var bytes = Encoding.Default.GetBytes(html);

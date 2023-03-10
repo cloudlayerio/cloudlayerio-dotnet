@@ -172,9 +172,11 @@ namespace cloudlayerio_dotnet_examples
             var filePath = Path.Combine("examples_out", dirName, fileName);
 
             stopwatch.Stop();
+            await rsp.SaveToFilesystem(filePath);
 
             DisplayEndText($"{(rsp.IsOk ? "Completed" : "Failed")}: ({stopwatch.Elapsed})");
-            DisplayEndText($"The asset url is: {rsp.Response.AssetUrl}");
+            DisplayEndText($"The file was saved to {filePath}.");
+            DisplayEndText($"The asset url is: {rsp.Response?.AssetUrl}");
 
             if (!rsp.IsOk)
                 Console.WriteLine("For failures, check the error.log in root of output folder.");
@@ -191,8 +193,11 @@ namespace cloudlayerio_dotnet_examples
                 Async = false
             });
 
-            //await rsp.SaveToFilesystem(Path.Combine("examples_out", "UrlToImage", "google.png"));
-            DisplayEndText($"The asset url is: {rsp.Response.AssetUrl}");
+            var filePath = Path.Combine("examples_out", "UrlToImage", "google.png");
+            await rsp.SaveToFilesystem(filePath);
+            
+            DisplayEndText($"The file was saved to {filePath}");
+            DisplayEndText($"The asset url is: {rsp.Response?.AssetUrl}");
             DisplayContinueText();
         }
 
@@ -207,7 +212,10 @@ namespace cloudlayerio_dotnet_examples
                 Async = false
             });
             
-            DisplayEndText($"The asset url is: {rsp.Response.AssetUrl}");
+            var filePath = Path.Combine("examples_out", "UrlToPdf", "google.pdf");
+            await rsp.SaveToFilesystem(filePath);
+            
+            DisplayEndText($"The file was save to {filePath}: {rsp.Response?.AssetUrl}");
             DisplayContinueText();
         }
 

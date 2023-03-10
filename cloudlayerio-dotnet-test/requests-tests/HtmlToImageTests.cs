@@ -33,5 +33,7 @@ namespace cloudlayerio_dotnet_test.requests_tests
             var urlToImage = new HtmlToImage();
             Assert.AreEqual("html/image", urlToImage.Path);
         }
+        
+        
     }
 }
