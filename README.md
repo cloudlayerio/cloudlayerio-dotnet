@@ -14,7 +14,7 @@
 
 ## About The Project
 
-`cloudlayerio-dotnet` is a **.NET 5** library [cloudlayer.io](https://cloudlayer.io). It is used to automate and manipulate content such as PDF files, and images.  Using this library and cloudlayer.io service, you can convert HTML to PDF, HTML to Images, URLs to PDFs, URLs to Images, and more.
+`cloudlayerio-dotnet` is a **.NET 6** library [cloudlayer.io](https://cloudlayer.io). It is used to automate and manipulate content such as PDF files, and images.  Using this library and cloudlayer.io service, you can convert HTML to PDF, HTML to Images, URLs to PDFs, URLs to Images, and more.
 ## Installation
 
 The `cloudlayerio-dotnet` library is bundled in a NuGet Package.
@@ -63,9 +63,29 @@ var rsp = await manager.UrlToPdf(new UrlToPdf
 
 The `rsp` is the [ReturnResponse](https://github.com/cloudlayerio/cloudlayerio-dotnet/blob/main/cloudlayerio-dotnet/responses/ReturnResponse.cs) type and will contain the `Stream` as well as several other properties, along with a helper method `SaveToFilesystem`. This method is a convenience method to make it easier to save the results of the stream to local storage.
 
-### Save PDF to Local Storage
+As of v2, the PDF file is not returned as part of the response. The SDK now returns a JSON response and the SaveToFilesystem Helper will only save the json response to the filesystem now. In addition, the response now contains the entire response object which is populated with the response data in a fully typed manner.
+
+If you are using `async: false` it will return back the entire populated response, including the `assetUrl` which will contain the URL to your asset.
+
+### Save Response to Local Storage
 ```c#
-await rsp.SaveToFileSystem("C:\myfile.pdf");
+await rsp.SaveToFileSystem("C:\myfile.json");
+```
+
+### Get the Url
+_Note: This will be empty for async calls, use webhook to get the response for asnyc. Otherwise, use `async: false` property._
+```c#
+var url = rsp.Response.AssetUrl;
+```
+
+### Set Async to false
+If you do not plan to use webhooks, and have short lived requests you can set `async: false`. If your requests are long lived, we highly suggest using webhooks with `async: true` to avoid connection terminations due to timeouts.
+```c#
+var rsp = await manager.UrlToImage(new UrlToImage {
+    Url = "http://google.com",
+    Async = false
+});
+var url = rsp.Response.AssetUrl;
 ```
 
 You of course can access the `Stream` property your self and write your own storage code.
@@ -86,7 +106,7 @@ var rsp = await manager.UrlToImage(new UrlToImage {
     }
 });
 
-await rsp.SaveToFilesystem("c:\google.png");
+var url = rsp.Response.AssetUrl;
 ```
 
 ### Advanced Options
