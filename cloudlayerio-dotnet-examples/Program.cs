@@ -38,7 +38,14 @@ namespace cloudlayerio_dotnet_examples
 
 
             var key = GetKey();
-            _manager = new CloudlayerioManager(key);
+            //If you want to use the v1 endpoint you would pass in v1. One reason to use v1 is that
+            //in v1, data is not stored on our servers and is passed inline to the response. The URL
+            //will be blank in this case.
+            
+            //_manager = new CloudlayerioManager(key, ApiEndpointVersion.v1);
+            
+            _manager = new CloudlayerioManager(key);  //use latest endpoint version
+
             _options = new Dictionary<string, Func<Task>>
             {
                 ["UrlToImage Single Website"] = GetGoogleImage,

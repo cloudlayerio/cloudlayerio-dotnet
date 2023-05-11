@@ -17,8 +17,8 @@ namespace cloudlayerio_dotnet.requests
         private readonly HttpClient _httpClient;
         private readonly IStorage _storage;
 
-        public RequestBuilder(HttpClient httpClient, string apiKey)
-            : this(httpClient, apiKey, new FilesystemStorage(), ApiEndpointVersion.v2)
+        public RequestBuilder(HttpClient httpClient, string apiKey, ApiEndpointVersion apiEndpointVersion)
+            : this(httpClient, apiKey, new FilesystemStorage(), apiEndpointVersion)
         {
         }
 

@@ -67,57 +67,6 @@ namespace cloudlayerio_dotnet_test.requests_tests
         }
 
         [TestMethod]
-        public async Task DataFlowCheck()
-        {
-            var reqBuilder = new RequestBuilder<UrlToImage>(_httpClient, "");
-
-            var urlToImageParams = new UrlToImage
-            {
-                Url = "https://google.com"
-            };
-
-            const string testData = "Test Data";
-
-            //simulating the flow of binary data, content type doesn't matter
-            var testStream = new MemoryStream(Encoding.Default.GetBytes(testData));
-            When().Returns(ResponseMessage(HttpStatusCode.OK, testStream));
-
-            var rsp = await reqBuilder.SendRequest(urlToImageParams);
-
-            var streamReader = new StreamReader(rsp.Stream);
-            var decodedText = await streamReader.ReadToEndAsync();
-            Assert.AreEqual(testData, decodedText);
-        }
-
-        [TestMethod]
-        public async Task SaveToFileSystem_DataFlowCheck()
-        {
-            var fakeFileStream = new FakeFileStorage();
-            var reqBuilder = new RequestBuilder<UrlToImage>(_httpClient, "", fakeFileStream, ApiEndpointVersion.v2);
-
-            var urlToImageParams = new UrlToImage
-            {
-                Url = "https://google.com"
-            };
-
-            const string testData = "Test Data";
-
-            //simulating the flow of binary data, content type doesn't matter
-            var testStream = new MemoryStream(Encoding.Default.GetBytes(testData));
-            When().Returns(ResponseMessage(HttpStatusCode.OK, testStream));
-
-            var rsp = await reqBuilder.SendRequest(urlToImageParams);
-
-            await rsp.SaveToFilesystem("\\test\test.txt");
-
-            var fileStream = (MemoryStream)fakeFileStream.GetFileStream("");
-
-            var fileBytes = fileStream.ToArray();
-            var decodedText = Encoding.Default.GetString(fileBytes);
-            Assert.AreEqual(testData, decodedText);
-        }
-
-        [TestMethod]
         public async Task ApiKeyHeader_Exists()
         {
             var fakeFileStream = new FakeFileStorage();

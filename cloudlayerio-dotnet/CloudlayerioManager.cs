@@ -15,13 +15,24 @@ namespace cloudlayerio_dotnet
     {
         private readonly string _apiKey;
         private readonly HttpClient _httpClient;
+        private readonly ApiEndpointVersion _apiEndpointVersion = ApiEndpointVersion.v2;
 
         /// <summary>
         ///     Initialize the cloudlayer.io Manager
         /// </summary>
         /// <param name="apiKey">API Key from your Dashboard -> API Keys (Keep this secure)</param>
         public CloudlayerioManager(string apiKey)
-            : this(apiKey, new HttpClient())
+            : this(apiKey, new HttpClient(), ApiEndpointVersion.v2)
+        {
+        }
+        
+        /// <summary>
+        ///     Initialize the cloudlayer.io Manager
+        /// </summary>
+        /// <param name="apiKey">API Key from your Dashboard -> API Keys (Keep this secure)</param>
+        /// <param name="apiEndpointVersion">Optional version of the API to call.</param>
+        public CloudlayerioManager(string apiKey, ApiEndpointVersion apiEndpointVersion)
+            : this(apiKey, new HttpClient(), apiEndpointVersion)
         {
         }
 
@@ -30,10 +41,16 @@ namespace cloudlayerio_dotnet
         /// </summary>
         /// <param name="apiKey">API Key from your Dashboard -> API Keys (Keep this secure)</param>
         /// <param name="httpClient">HttpClient used for making connection.</param>
-        public CloudlayerioManager(string apiKey, HttpClient httpClient)
+        /// <param name="apiEndpointVersion">Optional version of the API to call.</param>
+        public CloudlayerioManager(string apiKey, HttpClient httpClient, ApiEndpointVersion? apiEndpointVersion)
         {
             _httpClient = httpClient;
             _apiKey = apiKey;
+            
+            if (apiEndpointVersion.HasValue)
+            {
+                _apiEndpointVersion = apiEndpointVersion.Value;
+            }
         }
 
         /// <summary>
@@ -88,7 +105,7 @@ namespace cloudlayerio_dotnet
 
         private Task<ReturnResponse<T>> SendRequest<T>(T obj) where T : class, IEndpointPath
         {
-            var reqBuilder = new RequestBuilder<T>(_httpClient, _apiKey);
+            var reqBuilder = new RequestBuilder<T>(_httpClient, _apiKey, _apiEndpointVersion);
             return reqBuilder.SendRequest(obj);
         }
     }
