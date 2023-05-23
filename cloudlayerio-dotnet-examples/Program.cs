@@ -42,9 +42,9 @@ namespace cloudlayerio_dotnet_examples
             //in v1, data is not stored on our servers and is passed inline to the response. The URL
             //will be blank in this case.
             
-            //_manager = new CloudlayerioManager(key, ApiEndpointVersion.v1);
+            _manager = new CloudlayerioManager(key, ApiEndpointVersion.v1);
             
-            _manager = new CloudlayerioManager(key);  //use latest endpoint version
+            //_manager = new CloudlayerioManager(key);  //use latest endpoint version
 
             _options = new Dictionary<string, Func<Task>>
             {

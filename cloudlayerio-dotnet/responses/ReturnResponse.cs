@@ -61,7 +61,7 @@ namespace cloudlayerio_dotnet.responses
         ///     Convenience method to make it easy to save the Document to the filesystem. Will skip saving for failures.
         /// </summary>
         /// <param name="filePath">The filepath to save the document (will overwrite existing)</param>
-        public async Task SaveToFilesystem( string filePath)
+        public async Task SaveToFilesystem(string filePath)
         {
             var dir = Path.GetDirectoryName(filePath);
             Directory.CreateDirectory(dir!);
@@ -71,7 +71,8 @@ namespace cloudlayerio_dotnet.responses
                 if (ContentType == "application/json" && !string.IsNullOrEmpty(Response.AssetUrl))
                 {
                     await DownloadAsset(Response.AssetUrl, filePath);
-                } else if (Stream?.Length > 0)
+                }
+                else if (Stream?.Length > 0)
                 {
                     await using var fileStream = _storage.GetFileStream(filePath);
                     await Stream.CopyToAsync(fileStream, _token);
@@ -83,11 +84,14 @@ namespace cloudlayerio_dotnet.responses
                     $"{DateTime.Now.ToString(CultureInfo.CurrentCulture)}\t{filePath}\t{FailureResponse.Reason}\t{FailureResponse.Error}"));
             }
         }
-        
+
         internal void SetResponse()
         {
             if (!IsOk || ContentType != "application/json")
+            {
                 Response = null;
+                return;
+            }
 
             var reader = new StreamReader(Stream);
             var json = reader.ReadToEnd();
